@@ -120,7 +120,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iGo-cQ-Zm0">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード(6文字以上)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iGo-cQ-Zm0">
                                 <rect key="frame" x="16" y="125" width="343" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="bbL-q1-ibq"/>
@@ -186,7 +186,7 @@
                     <connections>
                         <outlet property="accountNameTF" destination="GcZ-yW-PfV" id="L45-w0-f9W"/>
                         <outlet property="mailAddressTF" destination="vIB-Dw-bMh" id="rJe-Wc-yo7"/>
-                        <outlet property="passwardTF" destination="iGo-cQ-Zm0" id="yo1-yi-jeL"/>
+                        <outlet property="passwordTF" destination="iGo-cQ-Zm0" id="yXm-Fa-PiY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xvN-D1-3nM" userLabel="First Responder" sceneMemberID="firstResponder"/>
