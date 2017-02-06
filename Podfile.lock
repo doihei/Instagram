@@ -1,0 +1,12 @@
+PODS:
+  - ESTabBarController (0.1.3)
+
+DEPENDENCIES:
+  - ESTabBarController
+
+SPEC CHECKSUMS:
+  ESTabBarController: f08fa16b154cfb9d8d42096f7d6d10b58775dbf5
+
+PODFILE CHECKSUM: 00d677beb72468424c94b545f22827eec6338207
+
+COCOAPODS: 1.2.0.beta.1
