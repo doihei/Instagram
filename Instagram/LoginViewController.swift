@@ -12,6 +12,9 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+// SVProgressHUD系
+import SVProgressHUD
+
 class LoginViewController: UIViewController {
     
     /// メールアドレステキストフィールド
@@ -50,12 +53,18 @@ class LoginViewController: UIViewController {
             return
         }
         
+        // ローディング
+        SVProgressHUD.show()
+        
         // ログイン処理
         FIRAuth.auth()?.signIn(withEmail: address, password: password) { (user, error) in
+            
             if let error = error {
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
                 print("DEBUG_PRINT: " + error.localizedDescription)
                 return
             } else {
+                SVProgressHUD.dismiss()
                 print("DEBUG_PRINT: ログインに成功しました。")
                 
                 // 画面を閉じてViewControllerに戻る
@@ -80,20 +89,25 @@ class LoginViewController: UIViewController {
             return
         }
         
+        SVProgressHUD.show()
         // アドレスとパスワードでアカウント作成
         FIRAuth.auth()?.createUser(withEmail: address, password: password) { (user, error) in
             
             if let error = error {
                 // エラーがあれば、処理抜け
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
                 NSLog("DEBUG_PRINT: \(error.localizedDescription)")
                 return
             }
             
+            SVProgressHUD.dismiss()
             // 表示名を作成する
             if let currentUser = FIRAuth.auth()?.currentUser {
+                SVProgressHUD.show()
                 let changeRequest = currentUser.profileChangeRequest()
                 changeRequest.displayName = accountName
                 changeRequest.commitChanges { error in
+                    SVProgressHUD.dismiss()
                     if let error = error {
                         NSLog("DEBUG_PRINT: " + error.localizedDescription)
                     }
