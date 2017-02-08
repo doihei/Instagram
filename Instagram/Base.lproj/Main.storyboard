@@ -38,7 +38,40 @@
                     <view key="view" contentMode="scaleToFill" id="l91-D9-5RR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="lw8-UZ-vcc">
+                                <rect key="frame" x="24" y="50" width="327" height="190"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Qh-Xh-Hqh">
+                                        <rect key="frame" x="0.0" y="0.0" width="327" height="40"/>
+                                        <state key="normal" title="ライブラリ" backgroundImage="btn"/>
+                                        <connections>
+                                            <action selector="onLibrary:" destination="AgT-Oa-WQP" eventType="touchUpInside" id="giI-Uy-uxv"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dog-45-jVi">
+                                        <rect key="frame" x="0.0" y="75" width="327" height="40"/>
+                                        <state key="normal" title="カメラ" backgroundImage="btn"/>
+                                        <connections>
+                                            <action selector="onCancel:" destination="AgT-Oa-WQP" eventType="touchUpInside" id="Lz6-dd-R8z"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQx-Sb-lvq">
+                                        <rect key="frame" x="0.0" y="150" width="327" height="40"/>
+                                        <state key="normal" title="キャンセル" backgroundImage="btn"/>
+                                        <connections>
+                                            <action selector="onCamera:" destination="AgT-Oa-WQP" eventType="touchUpInside" id="OLa-mE-V8y"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="lw8-UZ-vcc" secondAttribute="trailing" constant="8" id="Blc-6O-y5l"/>
+                            <constraint firstItem="lw8-UZ-vcc" firstAttribute="leading" secondItem="l91-D9-5RR" secondAttribute="leadingMargin" constant="8" id="hUg-3N-9Fv"/>
+                            <constraint firstItem="lw8-UZ-vcc" firstAttribute="top" secondItem="2mS-8M-ESU" secondAttribute="bottom" constant="30" id="pGg-64-s33"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Sm-AO-U17" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -74,8 +107,51 @@
                     <view key="view" contentMode="scaleToFill" id="KEG-IH-zE8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ep7-qe-RHZ">
+                                <rect key="frame" x="24" y="50" width="327" height="140"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="表示名を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XCJ-Jc-Qe6">
+                                        <rect key="frame" x="0.0" y="0.0" width="327" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYs-8A-24W">
+                                        <rect key="frame" x="0.0" y="45" width="327" height="40"/>
+                                        <state key="normal" title="表示名を変更" backgroundImage="btn"/>
+                                        <connections>
+                                            <action selector="onChangeName:" destination="JYS-Ff-25i" eventType="touchUpInside" id="WWQ-HI-49q"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SX8-kr-NdW">
+                                        <rect key="frame" x="0.0" y="100" width="327" height="40"/>
+                                        <state key="normal" title="ログアウト" backgroundImage="btn"/>
+                                        <connections>
+                                            <action selector="onLogout:" destination="JYS-Ff-25i" eventType="touchUpInside" id="Bgt-2u-2jI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="XCJ-Jc-Qe6" firstAttribute="leading" secondItem="ep7-qe-RHZ" secondAttribute="leading" id="1se-If-507"/>
+                                    <constraint firstAttribute="trailing" secondItem="UYs-8A-24W" secondAttribute="trailing" id="3XO-9K-PGW"/>
+                                    <constraint firstAttribute="trailing" secondItem="SX8-kr-NdW" secondAttribute="trailing" id="DcB-Yc-oKN"/>
+                                    <constraint firstItem="UYs-8A-24W" firstAttribute="leading" secondItem="ep7-qe-RHZ" secondAttribute="leading" id="HOQ-WK-JSG"/>
+                                    <constraint firstItem="SX8-kr-NdW" firstAttribute="leading" secondItem="ep7-qe-RHZ" secondAttribute="leading" id="Ose-Zw-Yux"/>
+                                    <constraint firstAttribute="trailing" secondItem="XCJ-Jc-Qe6" secondAttribute="trailing" id="tXh-bQ-nom"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ep7-qe-RHZ" firstAttribute="leading" secondItem="KEG-IH-zE8" secondAttribute="leadingMargin" constant="8" id="3ai-xL-3ww"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ep7-qe-RHZ" secondAttribute="trailing" constant="8" id="PUZ-Wt-Iaz"/>
+                            <constraint firstItem="ep7-qe-RHZ" firstAttribute="top" secondItem="00W-As-94i" secondAttribute="bottom" constant="30" id="zRT-MW-skf"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="accountNameTF" destination="XCJ-Jc-Qe6" id="7WU-Hf-XrQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nCt-s5-TBR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -112,7 +188,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="niB-vK-9Ck">
-                                <rect key="frame" x="16" y="50" width="343" height="255"/>
+                                <rect key="frame" x="16" y="50" width="343" height="235"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="MEi-Bk-Nq6">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="120"/>
@@ -138,23 +214,17 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="v32-zI-NZ5">
-                                        <rect key="frame" x="0.0" y="140" width="343" height="115"/>
+                                        <rect key="frame" x="0.0" y="140" width="343" height="95"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0GB-5E-kCq">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="rbh-fY-oDI"/>
-                                                </constraints>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
                                                 <state key="normal" title="ログイン" backgroundImage="btn"/>
                                                 <connections>
                                                     <action selector="onLogin:" destination="myp-iJ-awE" eventType="touchUpInside" id="ZUk-FE-ZEN"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6aJ-mb-hNi">
-                                                <rect key="frame" x="0.0" y="65" width="343" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="N4c-Mk-2j8"/>
-                                                </constraints>
+                                                <rect key="frame" x="0.0" y="55" width="343" height="40"/>
                                                 <state key="normal" title="アカウント作成" backgroundImage="btn"/>
                                                 <connections>
                                                     <action selector="onCreateAccount:" destination="myp-iJ-awE" eventType="touchUpInside" id="ya9-az-xc2"/>

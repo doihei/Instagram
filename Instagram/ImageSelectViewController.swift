@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageSelectViewController: UIViewController {
+class ImageSelectViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +21,65 @@ class ImageSelectViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    /// ライブラリボタン押下時処理
+    ///
+    /// - Parameter sender: ボタン
+    @IBAction func onLibrary(_ sender: UIButton) {
+        
+        // ライブラリ（カメラロール）を指定してピッカーを開く
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            let pickerController = UIImagePickerController()
+            pickerController.delegate = self
+            pickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            self.present(pickerController, animated: true, completion: nil)
+        }
     }
-    */
-
+    
+    /// カメラボタン押下時処理
+    ///
+    /// - Parameter sender: ボタン
+    @IBAction func onCamera(_ sender: UIButton) {
+        // カメラを指定してピッカーを開く
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            let pickerController = UIImagePickerController()
+            pickerController.delegate = self
+            pickerController.sourceType = UIImagePickerControllerSourceType.camera
+            self.present(pickerController, animated: true, completion: nil)
+        }
+    }
+    
+    /// キャンセル押下時処理
+    ///
+    /// - Parameter sender: ボタン
+    @IBAction func onCancel(_ sender: UIButton) {
+        // 画面を閉じる
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    /// 写真を撮影/選択したときに呼ばれるメソッド
+    ///
+    /// - Parameters:
+    ///   - picker: ピッカー
+    ///   - info: 情報体
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if info[UIImagePickerControllerOriginalImage] != nil {
+            // 撮影/選択された画像を取得する
+            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            
+            // あとでAdobeUXImageEditorを起動する
+            
+        }
+        
+        // 閉じる
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    /// ピッカー閉じる
+    ///
+    /// - Parameter picker: ピッカー
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // 閉じる
+        picker.dismiss(animated: true, completion: nil)
+    }
 }
