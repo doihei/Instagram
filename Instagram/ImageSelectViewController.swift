@@ -21,21 +21,6 @@ class ImageSelectViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    /// キャンセル押下時処理
-    ///
-    /// - Parameter sender: ボタン
-    @IBAction func onCancel(_ sender: UIButton) {
-        // 画面を閉じる
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-}
-
-
-// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate, AdobeUXImageEditorViewControllerDelegate
-extension ImageSelectViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, AdobeUXImageEditorViewControllerDelegate {
-    
     /// ライブラリボタン押下時処理
     ///
     /// - Parameter sender: ボタン
@@ -62,6 +47,20 @@ extension ImageSelectViewController: UIImagePickerControllerDelegate, UINavigati
             self.present(pickerController, animated: true, completion: nil)
         }
     }
+    
+    /// キャンセル押下時処理
+    ///
+    /// - Parameter sender: ボタン
+    @IBAction func onCancel(_ sender: UIButton) {
+        // 画面を閉じる
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension ImageSelectViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     /// 写真を撮影/選択したときに呼ばれるメソッド
     ///
@@ -95,6 +94,10 @@ extension ImageSelectViewController: UIImagePickerControllerDelegate, UINavigati
         // 閉じる
         picker.dismiss(animated: true, completion: nil)
     }
+}
+
+// MARK: - AdobeUXImageEditorViewControllerDelegate
+extension ImageSelectViewController: AdobeUXImageEditorViewControllerDelegate {
     
     /// 加工が終わった時に呼ばれるメソッド
     ///
