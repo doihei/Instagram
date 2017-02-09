@@ -56,10 +56,10 @@ class PostTableViewCell: UITableViewCell {
         
         if postData.isLiked {
             let buttonImage = UIImage(named: "like_exist")
-            self.likeButton.setImage(buttonImage, for: UIControlState.normal)
+            self.likeButton.setImage(buttonImage, for: .normal)
         } else {
             let buttonImage = UIImage(named: "like_none")
-            self.likeButton.setImage(buttonImage, for: UIControlState.normal)
+            self.likeButton.setImage(buttonImage, for: .normal)
         }
     }
 }

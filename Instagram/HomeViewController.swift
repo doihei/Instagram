@@ -113,17 +113,6 @@ class HomeViewController: UIViewController {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        // 画面出る際にObserving調整
-        if FIRAuth.auth()?.currentUser != nil {
-            observing = false
-        } else {
-            observing = true
-        }
-    }
-    
     /// イイネボタン押下時
     ///
     /// - Parameters:
