@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// - Throws: AdobeError
     private func setAdobeSDK() throws {
         // adobeSDKを用いるための情報
-        if let adobeSDKDictPath = Bundle.main.path(forResource: "Adobe-sdk-info", ofType: "plist") {
+        if let adobeSDKDictPath = Bundle.main.path(forResource: "Adobe-sdk-Info", ofType: "plist") {
             let adobeSDKDict = NSDictionary(contentsOfFile: adobeSDKDictPath)
             
             // Adobe先生の起動
