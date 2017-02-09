@@ -89,8 +89,74 @@
                     <view key="view" contentMode="scaleToFill" id="JVm-1d-z4A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="igW-F3-c6w">
+                                <rect key="frame" x="16" y="50" width="343" height="300"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="4j6-c5-psM">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="175"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kov-qs-qfd">
+                                                <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="175" id="ntB-Z2-YiY"/>
+                                                    <constraint firstAttribute="height" constant="175" id="vbe-Q4-Aik"/>
+                                                </constraints>
+                                            </imageView>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="キャプション" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guc-jM-JKC">
+                                                <rect key="frame" x="205" y="145" width="138" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="kov-qs-qfd" firstAttribute="top" secondItem="4j6-c5-psM" secondAttribute="top" id="AMF-Vj-nyK"/>
+                                            <constraint firstItem="kov-qs-qfd" firstAttribute="leading" secondItem="4j6-c5-psM" secondAttribute="leading" id="t89-Ff-XZZ"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rRC-tb-1hT">
+                                        <rect key="frame" x="0.0" y="205" width="343" height="95"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Neq-qf-WYs">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
+                                                <state key="normal" title="投稿" backgroundImage="btn"/>
+                                                <connections>
+                                                    <action selector="onChangeName:" destination="JYS-Ff-25i" eventType="touchUpInside" id="Prj-VL-koL"/>
+                                                    <action selector="onPost:" destination="TKD-N4-xmU" eventType="touchUpInside" id="KYJ-xG-elX"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Lr-k5-sAL">
+                                                <rect key="frame" x="0.0" y="55" width="343" height="40"/>
+                                                <state key="normal" title="キャンセル" backgroundImage="btn"/>
+                                                <connections>
+                                                    <action selector="onCancel:" destination="TKD-N4-xmU" eventType="touchUpInside" id="uOf-5T-ere"/>
+                                                    <action selector="onLogout:" destination="JYS-Ff-25i" eventType="touchUpInside" id="O0x-Tn-7Q1"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="rRC-tb-1hT" secondAttribute="trailing" id="FzF-yq-i63"/>
+                                    <constraint firstItem="rRC-tb-1hT" firstAttribute="leading" secondItem="igW-F3-c6w" secondAttribute="leading" id="iCT-de-Ibo"/>
+                                    <constraint firstItem="4j6-c5-psM" firstAttribute="top" secondItem="igW-F3-c6w" secondAttribute="top" id="ksf-gw-cU9"/>
+                                    <constraint firstAttribute="trailing" secondItem="4j6-c5-psM" secondAttribute="trailing" id="rM6-A8-UrC"/>
+                                    <constraint firstItem="4j6-c5-psM" firstAttribute="leading" secondItem="igW-F3-c6w" secondAttribute="leading" id="uGB-jg-ik3"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="igW-F3-c6w" firstAttribute="leading" secondItem="JVm-1d-z4A" secondAttribute="leadingMargin" id="6Gy-4N-uQg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="igW-F3-c6w" secondAttribute="trailing" id="oQg-ML-Fzy"/>
+                            <constraint firstItem="igW-F3-c6w" firstAttribute="top" secondItem="8Ts-12-bY0" secondAttribute="bottom" constant="30" id="tqY-Ro-W7S"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="kov-qs-qfd" id="ag4-mK-Ctp"/>
+                        <outlet property="textField" destination="guc-jM-JKC" id="DpA-nM-eZg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyo-iw-okp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
