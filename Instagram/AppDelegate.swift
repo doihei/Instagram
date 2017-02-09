@@ -8,16 +8,57 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
+
+/// adobeSDK起動エラー
+///
+/// - noPlist: プレイリストがない
+/// - noDictionaryKey: 該当キーがない
+enum AdobeError : Error {
+    case noPlist
+    case noDictionaryKey(String)
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    /// アドビの設定
+    ///
+    /// - Throws: AdobeError
+    private func setAdobeSDK() throws {
+        // adobeSDKを用いるための情報
+        if let adobeSDKDictPath = Bundle.main.path(forResource: "Adobe-sdk-info", ofType: "plist") {
+            let adobeSDKDict = NSDictionary(contentsOfFile: adobeSDKDictPath)
+            
+            // Adobe先生の起動
+            guard let apiKey = adobeSDKDict?["API_KEY"] as? String else { throw AdobeError.noDictionaryKey("CLIENT_SECRET") }
+            guard let clientSecret = adobeSDKDict?["CLIENT_SECRET"] as? String else { throw AdobeError.noDictionaryKey("CLIENT_SECRET") }
+            AdobeUXAuthManager.shared().setAuthenticationParametersWithClientID(apiKey, withClientSecret: clientSecret)
+        } else {
+            // plistがない場合
+            throw AdobeError.noPlist
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FIRApp.configure()
+        
+        do {
+            // アドビの設定
+            try setAdobeSDK()
+        } catch let error {
+            guard let adobeError = error as? AdobeError else { return true }
+            switch adobeError {
+            case .noPlist:
+                SVProgressHUD.showError(withStatus: "Adobe-sdk-info.plistが存在しません。\nプロジェクトを確認してください。")
+            case .noDictionaryKey(let key):
+                SVProgressHUD.showError(withStatus: "\(key)が存在しません。\nAdobe-sdk-info.plistを確認してください。")
+            }
+        }
+        
         return true
     }
 

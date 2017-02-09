@@ -1,4 +1,5 @@
 AdobeCreativeSDK*
 Pods/*
 Instagram.xcworkspace
-GoogleService-Info.plist
+Instagram/Adobe-sdk-info.plist
+Instagram/GoogleService-Info.plist
