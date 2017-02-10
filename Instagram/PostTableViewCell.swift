@@ -26,6 +26,15 @@ class PostTableViewCell: UITableViewCell {
     /// 説明ラベル
     @IBOutlet weak var captionLabel: UILabel!
     
+    /// コメントファーストラベル
+    @IBOutlet weak var commentFirstLabel: UILabel!
+    
+    /// コメントその他
+    @IBOutlet weak var otherCommentButton: UIButton!
+    
+    /// コメントボタン
+    @IBOutlet weak var commentButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -61,5 +70,7 @@ class PostTableViewCell: UITableViewCell {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
+        
+        
     }
 }
