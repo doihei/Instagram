@@ -11,4 +11,7 @@ target 'Instagram' do
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'SVProgressHUD'
+
+  pod 'NextGrowingTextView'
+
 end

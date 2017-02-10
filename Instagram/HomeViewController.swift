@@ -13,17 +13,33 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
+import NextGrowingTextView
+
+import ESTabBarController
+
 /// タイムライン画面
 class HomeViewController: UIViewController {
 
     /// テーブルビュー
     @IBOutlet weak var tableView: UITableView!
     
+    /// コメントビュー
+    @IBOutlet weak var commentView: UIView!
+    
+    /// コメントテキストビュー
+    @IBOutlet weak var commentTextView: NextGrowingTextView!
+    
+    /// コメントボタン
+    @IBOutlet weak var commentButton: UIButton!
+    
+    /// コメント下部のAutoLayout
+    @IBOutlet weak var commentViewBottom: NSLayoutConstraint!
+    
     /// 投稿データ格納配列
     var postArray: [PostData] = []
     
     /// フラグ
-    var observing = false
+    private var observing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +50,64 @@ class HomeViewController: UIViewController {
         // テーブルセルタップの無効
         tableView.allowsSelection = false
         
+        // キーボード制御
+        tableView.keyboardDismissMode = .onDrag
+        
         // テーブルビューセルクラスの指定
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
         tableView.rowHeight = UITableViewAutomaticDimension
+
+        /// コメント設定
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        self.commentTextView.layer.cornerRadius = 4
+        self.commentTextView.backgroundColor = UIColor.white
+        self.commentTextView.textContainerInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
+        self.commentTextView.placeholderAttributedText = NSAttributedString(string: "コメントを入力してください。",
+                                                                            attributes: [NSFontAttributeName: self.commentTextView.font!,
+                                                                                         NSForegroundColorAttributeName: UIColor.gray
+            ]
+        )
+        self.commentView.isHidden = true
+
+    }
+    
+    func keyboardWillHide(_ sender: Notification) {
+        if let userInfo = (sender as NSNotification).userInfo {
+            if let _ = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
+                //key point 0,
+                self.commentViewBottom.constant = 0
+                UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                    self.view.layoutIfNeeded()
+                    self.commentView.isHidden = true
+                    let tabBarController = self.parent as! ESTabBarController
+                    tabBarController.setBarHidden(false, animated: false)
+                    
+                })
+            }
+        }
+    }
+    func keyboardWillShow(_ sender: Notification) {
+        if let userInfo = (sender as NSNotification).userInfo {
+            if let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
+                let tabBarController = parent as! ESTabBarController
+                tabBarController.setBarHidden(true, animated: false)
+                self.commentView.isHidden = false
+                self.commentViewBottom.constant = keyboardHeight
+                UIView.animate(withDuration: 0.25, animations: { () -> Void in self.view.layoutIfNeeded() })
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,6 +218,15 @@ class HomeViewController: UIViewController {
             
         }
     }
+    
+    /// コメント記入ボタン押下時
+    ///
+    /// - Parameters:
+    ///   - sender: ボタン
+    ///   - event: イベント
+    func onCommentWrite(sender: UIButton, event:UIEvent) {
+        let _ = self.commentTextView.becomeFirstResponder()
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -183,6 +257,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         // セル内のボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(onLike(sender:event:)), for:  .touchUpInside)
+        
+        // セル内コメントのボタンのアクション
+        cell.commentButton.addTarget(self, action: #selector(onCommentWrite(sender:event:)), for: .touchUpInside)
         
         return cell
     }
