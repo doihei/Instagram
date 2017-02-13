@@ -33,7 +33,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var otherCommentButton: UIButton!
     
     /// コメントボタン
-    @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet weak var commentWriteButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

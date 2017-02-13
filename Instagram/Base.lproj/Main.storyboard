@@ -369,6 +369,82 @@
             </objects>
             <point key="canvasLocation" x="1484" y="138.98050974512745"/>
         </scene>
+        <!--Post Detail View Controller-->
+        <scene sceneID="oIw-Bs-19R">
+            <objects>
+                <viewController storyboardIdentifier="PostDetail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="THe-ZV-HeE" customClass="PostDetailViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KTl-rt-OQ6"/>
+                        <viewControllerLayoutGuide type="bottom" id="lJ5-tc-ypx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fGr-Bd-it6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zMV-7J-Uvy">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXU-iv-Vy0">
+                                <rect key="frame" x="0.0" y="601" width="375" height="66"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="jS9-LG-qod">
+                                        <rect key="frame" x="8" y="8" width="359" height="50"/>
+                                        <subviews>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHy-yG-dXP" customClass="NextGrowingTextView" customModule="NextGrowingTextView">
+                                                <rect key="frame" x="0.0" y="0.0" width="294" height="50"/>
+                                            </scrollView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3wl-xU-Mf6">
+                                                <rect key="frame" x="309" y="22" width="50" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="7aJ-9x-JWT"/>
+                                                    <constraint firstAttribute="height" constant="28" id="ZV8-Ex-3Rd"/>
+                                                </constraints>
+                                                <state key="normal" title="コメ" backgroundImage="btn"/>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="3wl-xU-Mf6" secondAttribute="bottom" id="9fS-wa-m2k"/>
+                                            <constraint firstAttribute="trailing" secondItem="3wl-xU-Mf6" secondAttribute="trailing" id="GCL-ip-gUy"/>
+                                            <constraint firstItem="fHy-yG-dXP" firstAttribute="top" secondItem="jS9-LG-qod" secondAttribute="top" id="Sb4-Im-Bxe"/>
+                                            <constraint firstItem="fHy-yG-dXP" firstAttribute="leading" secondItem="jS9-LG-qod" secondAttribute="leading" id="lA4-5f-t5X"/>
+                                            <constraint firstAttribute="bottom" secondItem="fHy-yG-dXP" secondAttribute="bottom" id="tfv-4A-e4a"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="jS9-LG-qod" firstAttribute="top" secondItem="HXU-iv-Vy0" secondAttribute="top" constant="8" id="8Pa-Ab-NZV"/>
+                                    <constraint firstAttribute="bottom" secondItem="jS9-LG-qod" secondAttribute="bottom" constant="8" id="Dug-Xr-MGn"/>
+                                    <constraint firstItem="jS9-LG-qod" firstAttribute="leading" secondItem="HXU-iv-Vy0" secondAttribute="leading" constant="8" id="bz6-zB-w7f"/>
+                                    <constraint firstAttribute="trailing" secondItem="jS9-LG-qod" secondAttribute="trailing" constant="8" id="qda-Qh-F5G"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="zMV-7J-Uvy" firstAttribute="leading" secondItem="fGr-Bd-it6" secondAttribute="leading" id="2cI-6z-ibD"/>
+                            <constraint firstItem="HXU-iv-Vy0" firstAttribute="leading" secondItem="fGr-Bd-it6" secondAttribute="leading" id="B6a-59-19l"/>
+                            <constraint firstAttribute="trailing" secondItem="HXU-iv-Vy0" secondAttribute="trailing" id="e54-xc-sDh"/>
+                            <constraint firstItem="lJ5-tc-ypx" firstAttribute="top" secondItem="HXU-iv-Vy0" secondAttribute="bottom" id="jaL-kn-jMo"/>
+                            <constraint firstAttribute="trailing" secondItem="zMV-7J-Uvy" secondAttribute="trailing" id="kQ3-ji-qpt"/>
+                            <constraint firstItem="zMV-7J-Uvy" firstAttribute="top" secondItem="fGr-Bd-it6" secondAttribute="top" constant="20" id="m4Z-vR-Eqe"/>
+                            <constraint firstItem="lJ5-tc-ypx" firstAttribute="top" secondItem="zMV-7J-Uvy" secondAttribute="bottom" id="pWu-Ey-eCl"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="commentButton" destination="3wl-xU-Mf6" id="fVG-Bv-OVB"/>
+                        <outlet property="commentTextView" destination="fHy-yG-dXP" id="fXz-ZX-esl"/>
+                        <outlet property="commentView" destination="HXU-iv-Vy0" id="LAd-ai-o32"/>
+                        <outlet property="commentViewBottom" destination="jaL-kn-jMo" id="8sv-Gl-Zwv"/>
+                        <outlet property="tableView" destination="zMV-7J-Uvy" id="31t-Ai-CPJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tqb-cy-A92" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="809" y="-524"/>
+        </scene>
     </scenes>
     <resources>
         <image name="btn" width="300" height="40"/>

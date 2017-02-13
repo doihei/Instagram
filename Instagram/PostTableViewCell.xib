@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="335" height="535"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="335" height="535"/>
+                <rect key="frame" x="0.0" y="0.0" width="335" height="534"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RCt-pT-248">
@@ -70,30 +70,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ua3-ii-xbR">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ua3-ii-xbR">
                                 <rect key="frame" x="10" y="453" width="299" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="DG6-r1-eyi"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="コメントする"/>
+                                <state key="normal" title="コメントする" backgroundImage="btn"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="M2X-hh-Qlg">
                                 <rect key="frame" x="10" y="488" width="299" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySV-uL-lzZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="234" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="229" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqW-Df-Abs">
-                                        <rect key="frame" x="244" y="0.0" width="55" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqW-Df-Abs">
+                                        <rect key="frame" x="239" y="0.0" width="60" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="55" id="4kx-cJ-cPT"/>
+                                            <constraint firstAttribute="width" constant="60" id="4kx-cJ-cPT"/>
                                             <constraint firstAttribute="height" constant="30" id="Lg8-9b-Xcx"/>
                                         </constraints>
-                                        <state key="normal" title="other..."/>
+                                        <state key="normal" title="other..." backgroundImage="btn"/>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -125,8 +124,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="captionLabel" destination="TRv-Pq-XSU" id="wSI-B8-xdB"/>
-                <outlet property="commentButton" destination="ua3-ii-xbR" id="zJL-wB-rzX"/>
                 <outlet property="commentFirstLabel" destination="ySV-uL-lzZ" id="cyI-nO-5r3"/>
+                <outlet property="commentWriteButton" destination="ua3-ii-xbR" id="98t-EM-l6J"/>
                 <outlet property="dateLabel" destination="rDf-0o-gkI" id="hYa-Mx-XaS"/>
                 <outlet property="likeButton" destination="mXY-R4-wdD" id="NKz-CT-BFr"/>
                 <outlet property="likeLabel" destination="MJv-I5-aLa" id="Si1-7e-Jcg"/>
@@ -137,6 +136,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="btn" width="300" height="40"/>
         <image name="like_none" width="40" height="40"/>
     </resources>
 </document>
