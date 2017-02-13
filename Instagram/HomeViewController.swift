@@ -199,7 +199,9 @@ class HomeViewController: CommentBaseViewController {
     /// - Parameters:
     ///   - sender: ボタン
     ///   - event: イベント
-    override func onComment(sender: UIButton, event: UIEvent) {}
+    override func onComment(sender: UIButton, event: UIEvent) {
+        super.onComment(sender: sender, event: event)
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
