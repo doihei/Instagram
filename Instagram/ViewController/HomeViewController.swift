@@ -32,9 +32,6 @@ class HomeViewController: CommentBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        
         // テーブルセルタップの無効
         tableView.allowsSelection = false
         
@@ -59,6 +56,9 @@ class HomeViewController: CommentBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("DEBUG_PRINT: viewWillAppear")
+        
+        let tabBarController = parent?.parent as! ESTabBarController
+        tabBarController.setBarHidden(false, animated: false)
         
         if FIRAuth.auth()?.currentUser != nil {
             if observing == false {
@@ -129,7 +129,7 @@ class HomeViewController: CommentBaseViewController {
     /// - Parameter sender: Notification
     override func keyboardWillShowExtension(_ sender: Notification) {
         super.keyboardWillShowExtension(sender)
-        let tabBarController = parent as! ESTabBarController
+        let tabBarController = parent?.parent as! ESTabBarController
         tabBarController.setBarHidden(true, animated: false)
         self.commentView.isHidden = false
     }
@@ -139,7 +139,7 @@ class HomeViewController: CommentBaseViewController {
     /// - Parameter sender: Notification
     override func keyboardWillHideAnimatedExtension(_ sender: Notification) {
         super.keyboardWillHideAnimatedExtension(sender)
-        let tabBarController = self.parent as! ESTabBarController
+        let tabBarController = parent?.parent as! ESTabBarController
         tabBarController.setBarHidden(false, animated: false)
         self.commentView.isHidden = true
     }
@@ -262,6 +262,6 @@ extension HomeViewController: PostTableViewCellDelegate {
     func onPostDetailExtension(_ sender: UIButton, _ row: Int) {
         let postDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "PostDetail") as! PostDetailViewController
         postDetailVC.postData = self.postArray[row]
-        present(postDetailVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(postDetailVC, animated: true)
     }
 }

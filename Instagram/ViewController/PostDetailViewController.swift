@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import ESTabBarController
 
 /// 投稿詳細セルタイプ
 ///
 /// - detail: 詳細
 /// - comment: コメント
-enum PostDetailCellType: Int {
+private enum PostDetailCellType: Int {
     case detail
     case comment
     
@@ -36,9 +37,6 @@ class PostDetailViewController: CommentBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        
         // テーブルセルタップの無効
         tableView.allowsSelection = false
         
@@ -54,7 +52,10 @@ class PostDetailViewController: CommentBaseViewController {
         tableView.register(commentTableViewCellNib, forCellReuseIdentifier: "CommentTableViewCell")
         
         tableView.rowHeight = UITableViewAutomaticDimension
-
+        
+        // タブ隠しておく
+        let tabBarController = parent?.parent as! ESTabBarController
+        tabBarController.setBarHidden(true, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -138,6 +139,8 @@ extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
 
             // コメント概要は不要なので隠す
             cell.commentOverview.isHidden = true
+            // コメントするボタンも不要
+            cell.commentWriteButton.isHidden = true
             
             return cell
             

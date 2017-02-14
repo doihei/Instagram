@@ -26,7 +26,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="139"/>
+            <point key="canvasLocation" x="5" y="139"/>
         </scene>
         <!--Image Select View Controller-->
         <scene sceneID="HFV-XU-J8j">
@@ -77,7 +77,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Sm-AO-U17" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="815"/>
+            <point key="canvasLocation" x="523" y="895"/>
         </scene>
         <!--Post View Controller-->
         <scene sceneID="lR7-Uk-ABr">
@@ -161,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyo-iw-okp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="809" y="815"/>
+            <point key="canvasLocation" x="1018" y="895"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="yD9-VE-eqd">
@@ -214,12 +214,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nCt-s5-TBR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1484" y="815"/>
+            <point key="canvasLocation" x="1484" y="895"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="Ufn-q9-aAv">
             <objects>
-                <viewController storyboardIdentifier="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bHx-ai-IGI" customClass="HomeViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="bHx-ai-IGI" customClass="HomeViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="B9K-Zr-lUk"/>
                         <viewControllerLayoutGuide type="bottom" id="Y9i-mh-7B5"/>
@@ -228,9 +228,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1dv-Tf-ggj">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gKR-WQ-0qv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="bHx-ai-IGI" id="Qsw-Lc-eIM"/>
+                                    <outlet property="delegate" destination="bHx-ai-IGI" id="FXR-Tp-cyT"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vez-Dd-dcM">
                                 <rect key="frame" x="0.0" y="601" width="375" height="66"/>
@@ -271,26 +275,43 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="1dv-Tf-ggj" firstAttribute="top" secondItem="mpf-Q7-hcO" secondAttribute="top" constant="20" id="BUa-p6-WKI"/>
                             <constraint firstAttribute="trailing" secondItem="vez-Dd-dcM" secondAttribute="trailing" id="Ben-EP-moZ"/>
-                            <constraint firstItem="1dv-Tf-ggj" firstAttribute="leading" secondItem="mpf-Q7-hcO" secondAttribute="leading" id="FLw-0L-0rW"/>
-                            <constraint firstItem="Y9i-mh-7B5" firstAttribute="top" secondItem="1dv-Tf-ggj" secondAttribute="bottom" id="H2e-3b-XaR"/>
-                            <constraint firstAttribute="trailing" secondItem="1dv-Tf-ggj" secondAttribute="trailing" id="IdW-Lj-nGe"/>
+                            <constraint firstItem="gKR-WQ-0qv" firstAttribute="top" secondItem="mpf-Q7-hcO" secondAttribute="top" id="U2u-fM-0a5"/>
+                            <constraint firstItem="gKR-WQ-0qv" firstAttribute="leading" secondItem="mpf-Q7-hcO" secondAttribute="leading" id="ihK-Mx-3de"/>
                             <constraint firstItem="vez-Dd-dcM" firstAttribute="leading" secondItem="mpf-Q7-hcO" secondAttribute="leading" id="kKE-KK-G1a"/>
+                            <constraint firstItem="Y9i-mh-7B5" firstAttribute="top" secondItem="gKR-WQ-0qv" secondAttribute="bottom" id="oqC-aM-rWA"/>
                             <constraint firstItem="Y9i-mh-7B5" firstAttribute="top" secondItem="vez-Dd-dcM" secondAttribute="bottom" id="pQm-Zh-lEV"/>
+                            <constraint firstAttribute="trailing" secondItem="gKR-WQ-0qv" secondAttribute="trailing" id="t2K-Is-oGp"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="2Jl-g9-5q5"/>
                     <connections>
                         <outlet property="commentButton" destination="eQd-rS-G88" id="hiS-Nm-rnp"/>
                         <outlet property="commentTextView" destination="1Ls-1o-PWG" id="EhE-uC-FvG"/>
                         <outlet property="commentView" destination="vez-Dd-dcM" id="gNu-ag-Jln"/>
                         <outlet property="commentViewBottom" destination="pQm-Zh-lEV" id="jet-l9-Xyo"/>
-                        <outlet property="tableView" destination="1dv-Tf-ggj" id="9YM-LB-5jO"/>
+                        <outlet property="tableView" destination="gKR-WQ-0qv" id="Was-JO-ZQZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZU1-Yh-qNI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="808.79999999999995" y="138.98050974512745"/>
+            <point key="canvasLocation" x="522.5" y="138.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Lgh-R1-UjY">
+            <objects>
+                <navigationController storyboardIdentifier="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3TD-Ng-sor" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Izk-iT-KzM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bHx-ai-IGI" kind="relationship" relationship="rootViewController" id="qGV-yB-9Oc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vPU-TB-ySo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1018" y="139"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="isc-Ie-fvi">
@@ -382,9 +403,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zMV-7J-Uvy">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="THe-ZV-HeE" id="MAm-5W-bOc"/>
+                                    <outlet property="delegate" destination="THe-ZV-HeE" id="xb4-v5-OhL"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXU-iv-Vy0">
                                 <rect key="frame" x="0.0" y="601" width="375" height="66"/>
@@ -430,7 +455,7 @@
                             <constraint firstAttribute="trailing" secondItem="HXU-iv-Vy0" secondAttribute="trailing" id="e54-xc-sDh"/>
                             <constraint firstItem="lJ5-tc-ypx" firstAttribute="top" secondItem="HXU-iv-Vy0" secondAttribute="bottom" id="jaL-kn-jMo"/>
                             <constraint firstAttribute="trailing" secondItem="zMV-7J-Uvy" secondAttribute="trailing" id="kQ3-ji-qpt"/>
-                            <constraint firstItem="zMV-7J-Uvy" firstAttribute="top" secondItem="fGr-Bd-it6" secondAttribute="top" constant="20" id="m4Z-vR-Eqe"/>
+                            <constraint firstItem="zMV-7J-Uvy" firstAttribute="top" secondItem="fGr-Bd-it6" secondAttribute="top" id="m4Z-vR-Eqe"/>
                             <constraint firstItem="lJ5-tc-ypx" firstAttribute="top" secondItem="zMV-7J-Uvy" secondAttribute="bottom" id="pWu-Ey-eCl"/>
                         </constraints>
                     </view>
@@ -444,7 +469,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tqb-cy-A92" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="809" y="-593"/>
+            <point key="canvasLocation" x="522.39999999999998" y="-614.84257871064472"/>
         </scene>
     </scenes>
     <resources>
