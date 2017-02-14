@@ -3,8 +3,10 @@
 
 ## しなければいけないこと
 ### COCOAPODS
-`gem install cocoapods`
-`pod install`
+```
+gem install cocoapods
+pod install
+```
 
 ### AdobeCreativeSDK
 https://creativesdk.adobe.com/downloads.html
