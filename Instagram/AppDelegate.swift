@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let adobeSDKDict = NSDictionary(contentsOfFile: adobeSDKDictPath)
             
             // Adobe先生の起動
-            guard let apiKey = adobeSDKDict?["API_KEY"] as? String else { throw AdobeError.noDictionaryKey("CLIENT_SECRET") }
+            guard let apiKey = adobeSDKDict?["API_KEY"] as? String else { throw AdobeError.noDictionaryKey("API_KEY") }
             guard let clientSecret = adobeSDKDict?["CLIENT_SECRET"] as? String else { throw AdobeError.noDictionaryKey("CLIENT_SECRET") }
             AdobeUXAuthManager.shared().setAuthenticationParametersWithClientID(apiKey, withClientSecret: clientSecret)
         } else {
