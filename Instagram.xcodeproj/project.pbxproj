@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3079AAFD1E52A3F500E6AD29 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3079AAFC1E52A3F500E6AD29 /* Info.plist */; };
 		307A80DE1E484993003C4749 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A80DD1E484993003C4749 /* AppDelegate.swift */; };
 		307A80E51E484993003C4749 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 307A80E41E484993003C4749 /* Assets.xcassets */; };
 		30E044011E4B1B7300A58715 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E044001E4B1B7300A58715 /* libc++.tbd */; };
@@ -334,7 +333,6 @@
 				30EF964A1E529979005933CC /* Adobe-sdk-Info.plist in Resources */,
 				307A80E51E484993003C4749 /* Assets.xcassets in Resources */,
 				30EF96531E5299BE005933CC /* PostTableViewCell.xib in Resources */,
-				3079AAFD1E52A3F500E6AD29 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
