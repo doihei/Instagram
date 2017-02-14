@@ -9,6 +9,11 @@
 import UIKit
 import ESTabBarController
 
+/// Firebase系
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+
 /// 投稿詳細セルタイプ
 ///
 /// - detail: 詳細
@@ -34,6 +39,8 @@ class PostDetailViewController: CommentBaseViewController {
     /// テーブルビュー
     @IBOutlet weak var tableView: UITableView!
     
+    private var postDetailObserve: UInt?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,13 +60,63 @@ class PostDetailViewController: CommentBaseViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        // タブ隠しておく
-        let tabBarController = parent?.parent as! ESTabBarController
-        tabBarController.setBarHidden(true, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // タブ隠しておく
+        let tabBarController = parent?.parent as! ESTabBarController
+        tabBarController.setBarHidden(true, animated: false)
+        
+        if FIRAuth.auth()?.currentUser != nil {
+            // こいつはObserve保持しない
+            let postsRef = FIRDatabase.database().reference().child(Const.PostPath)
+            // 要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
+            self.postDetailObserve = postsRef.observe(.childChanged, with: { snapshot in
+                print("DEBUG_PRINT: .childChangedイベントが発生しました。")
+                
+                if let uid = FIRAuth.auth()?.currentUser?.uid {
+                    // PostDataクラスを生成して受け取ったデータを設定する
+                    let postData = PostData(snapshot: snapshot, myId: uid)
+                    
+                    // 保持しているデータからidが同じものがあれば変更
+                    if self.postData?.id == postData.id {
+                        self.postData = postData
+                        
+                        // TableViewの現在表示されているセルを更新する
+                        self.tableView.reloadData()
+                    }
+                }
+            })
+            
+        } else {
+            if FirebaseObservingUtil.isEitherObserving() {
+                // ログアウトを検出したら、一旦テーブルをクリアしてオブザーバーを削除する。
+                // テーブルをクリアする
+                self.postData = nil
+                tableView.reloadData()
+                // オブザーバーを削除する
+                FIRDatabase.database().reference().removeAllObservers()
+                
+                // FIRDatabaseのobserveEventが上記コードにより解除されたため
+                let _ = self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        /// 残ってしまうので
+        if let ui = self.postDetailObserve {
+            /// 削除する
+            FIRDatabase.database().reference().child(Const.PostPath).removeObserver(withHandle: ui)
+        }
     }
 }
 
@@ -142,6 +199,9 @@ extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
             // コメントするボタンも不要
             cell.commentWriteButton.isHidden = true
             
+            // デリゲート設定
+            cell.delegate = self
+            
             return cell
             
         case .comment:
@@ -173,5 +233,36 @@ extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
     ///   - indexPath: インデックスパス
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+    }
+}
+
+// MARK: - PostTableViewCellDelegate
+extension PostDetailViewController: PostTableViewCellDelegate {
+    
+    /// イイネボタン押下時の拡張処理
+    ///
+    /// - Parameters:
+    ///   - sender: ボタン
+    ///   - row: ROWナンバー
+    func onLikeExtension(_ sender: UIButton, _ row: Int) {
+        
+        guard let data = self.postData else { return }
+        
+        // Firebaseに保存するデータの準備
+        if let uid = FIRAuth.auth()?.currentUser?.uid {
+            if data.isLiked {
+                // すでにいいねをしていた場合はいいねを解除するためIDを取り除く
+                if let index = data.likes.index(of: uid) {
+                    data.likes.remove(at: index)
+                }
+            } else {
+                data.likes.append(uid)
+            }
+            
+            // 増えたlikesをFirebaseに保存する
+            let postRef = FIRDatabase.database().reference().child(Const.PostPath).child(data.id!)
+            let likes = ["likes": data.likes]
+            postRef.updateChildValues(likes)
+        }
     }
 }

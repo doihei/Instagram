@@ -55,11 +55,8 @@ class PostData: NSObject {
             }
         }
         
-        for likeId in self.likes {
-            if likeId == myId {
-                self.isLiked = true
-                break
-            }
+        if let _ = self.likes.index(of: myId) {
+            self.isLiked = true
         }
     }
 }

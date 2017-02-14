@@ -26,9 +26,6 @@ class HomeViewController: CommentBaseViewController {
     /// 投稿データ格納配列
     var postArray: [PostData] = []
     
-    /// フラグ
-    private var observing = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,8 +58,10 @@ class HomeViewController: CommentBaseViewController {
         tabBarController.setBarHidden(false, animated: false)
         
         if FIRAuth.auth()?.currentUser != nil {
-            if observing == false {
-                // 要素が追加されたらpostArrayに追加してTableViewを再表示する
+            // 登録するObserve
+            let entryObserve: [FirebaseObservingEventType] = [.timelineAdded, .timelineChanged]
+            // 要素が追加されたらpostArrayに追加してTableViewを再表示する
+            if !FirebaseObservingUtil.isObservingEvent(types: entryObserve) {
                 let postsRef = FIRDatabase.database().reference().child(Const.PostPath)
                 postsRef.observe(.childAdded, with: { snapshot in
                     print("DEBUG_PRINT: .childAddedイベントが発生しました。")
@@ -76,6 +75,7 @@ class HomeViewController: CommentBaseViewController {
                         self.tableView.reloadData()
                     }
                 })
+                
                 // 要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
                 postsRef.observe(.childChanged, with: { snapshot in
                     print("DEBUG_PRINT: .childChangedイベントが発生しました。")
@@ -103,23 +103,17 @@ class HomeViewController: CommentBaseViewController {
                         self.tableView.reloadData()
                     }
                 })
-                
-                // FIRDatabaseのobserveEventが上記コードにより登録されたため
-                // trueとする
-                observing = true
+                // 登録完了
+                FirebaseObservingUtil.setCompleteObserveEvent(types: entryObserve)
             }
         } else {
-            if observing == true {
+            if FirebaseObservingUtil.isEitherObserving() {
                 // ログアウトを検出したら、一旦テーブルをクリアしてオブザーバーを削除する。
                 // テーブルをクリアする
                 postArray = []
                 tableView.reloadData()
                 // オブザーバーを削除する
                 FIRDatabase.database().reference().removeAllObservers()
-                
-                // FIRDatabaseのobserveEventが上記コードにより解除されたため
-                // falseとする
-                observing = false
             }
         }
     }
@@ -224,15 +218,9 @@ extension HomeViewController: PostTableViewCellDelegate {
         if let uid = FIRAuth.auth()?.currentUser?.uid {
             if postData.isLiked {
                 // すでにいいねをしていた場合はいいねを解除するためIDを取り除く
-                var index = -1
-                for likeId in postData.likes {
-                    if likeId == uid {
-                        // 削除するためにインデックスを保持しておく
-                        index = postData.likes.index(of: likeId)!
-                        break
-                    }
+                if let index = postData.likes.index(of: uid) {
+                    postData.likes.remove(at: index)
                 }
-                postData.likes.remove(at: index)
             } else {
                 postData.likes.append(uid)
             }
