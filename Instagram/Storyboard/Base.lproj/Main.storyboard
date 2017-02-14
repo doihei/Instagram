@@ -435,16 +435,16 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="commentButton" destination="3wl-xU-Mf6" id="fVG-Bv-OVB"/>
-                        <outlet property="commentTextView" destination="fHy-yG-dXP" id="fXz-ZX-esl"/>
-                        <outlet property="commentView" destination="HXU-iv-Vy0" id="LAd-ai-o32"/>
-                        <outlet property="commentViewBottom" destination="jaL-kn-jMo" id="8sv-Gl-Zwv"/>
+                        <outlet property="commentButton" destination="3wl-xU-Mf6" id="Xf8-WT-l1X"/>
+                        <outlet property="commentTextView" destination="fHy-yG-dXP" id="spb-YN-0cP"/>
+                        <outlet property="commentView" destination="jS9-LG-qod" id="TKo-ZV-Kr3"/>
+                        <outlet property="commentViewBottom" destination="jaL-kn-jMo" id="TfZ-ed-oal"/>
                         <outlet property="tableView" destination="zMV-7J-Uvy" id="31t-Ai-CPJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tqb-cy-A92" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="809" y="-524"/>
+            <point key="canvasLocation" x="809" y="-593"/>
         </scene>
     </scenes>
     <resources>

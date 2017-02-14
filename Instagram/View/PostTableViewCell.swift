@@ -14,8 +14,7 @@ import FirebaseAuth
 import FirebaseDatabase
 
 /// 投稿テーブルビューセルデリゲート
-@objc
-protocol PostTableViewCellDelegate {
+@objc protocol PostTableViewCellDelegate {
     @objc optional func onLikeExtension(_ sender: UIButton, _
         row: Int)
     @objc optional func onCommentWriteExtension(_ sender: UIButton, _ row: Int)

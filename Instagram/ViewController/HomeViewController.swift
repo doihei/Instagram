@@ -253,4 +253,15 @@ extension HomeViewController: PostTableViewCellDelegate {
     func onCommentWriteExtension(_ sender: UIButton, _ row: Int) {
         let _ = self.commentTextView.becomeFirstResponder()
     }
+    
+    /// 投稿詳細ボタン押下時の拡張処理
+    ///
+    /// - Parameters:
+    ///   - sender: ボタン
+    ///   - row: ROWナンバー
+    func onPostDetailExtension(_ sender: UIButton, _ row: Int) {
+        let postDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "PostDetail") as! PostDetailViewController
+        postDetailVC.postData = self.postArray[row]
+        present(postDetailVC, animated: true, completion: nil)
+    }
 }
