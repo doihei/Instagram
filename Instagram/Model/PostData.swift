@@ -12,7 +12,7 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 
-/// 投稿データ
+/// 投稿データモデル
 class PostData: NSObject {
     var id: String?
     var image: UIImage?
@@ -47,10 +47,11 @@ class PostData: NSObject {
         if let comments = valueDictionary["comments"] as? [[String: AnyObject]] {
             for comment in comments {
                 guard let commentId = comment["id"] as? String else { continue }
+                guard let commentName = comment["name"] as? String else { continue }
                 guard let commentText = comment["comment"] as? String else { continue }
                 guard let commentDate = comment["date"] as? String else { continue }
                 
-                self.comments.append(Comment(id: commentId, comment: commentText, date: NSDate(timeIntervalSinceReferenceDate: TimeInterval(commentDate)!)))
+                self.comments.append(Comment(id: commentId, name: commentName, comment: commentText, date: NSDate(timeIntervalSinceReferenceDate: TimeInterval(commentDate)!)))
             }
         }
         
@@ -60,20 +61,5 @@ class PostData: NSObject {
                 break
             }
         }
-    }
-}
-
-/// コメントクラス
-class Comment: NSObject {
-    
-    var id: String?
-    var comment: String?
-    var date: NSDate?
-    
-    init(id: String, comment: String, date: NSDate) {
-        
-        self.id = id
-        self.comment = comment
-        self.date = date
     }
 }

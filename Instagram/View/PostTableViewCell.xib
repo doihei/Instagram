@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="335" height="535"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="335" height="534"/>
+                <rect key="frame" x="0.0" y="0.0" width="335" height="535"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RCt-pT-248">
@@ -39,6 +39,9 @@
                                             <constraint firstAttribute="width" constant="40" id="siu-7u-pGm"/>
                                         </constraints>
                                         <state key="normal" image="like_none"/>
+                                        <connections>
+                                            <action selector="onLike:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vAO-En-MrB"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJv-I5-aLa">
                                         <rect key="frame" x="50" y="0.0" width="40" height="40"/>
@@ -76,6 +79,9 @@
                                     <constraint firstAttribute="height" constant="25" id="DG6-r1-eyi"/>
                                 </constraints>
                                 <state key="normal" title="コメントする" backgroundImage="btn"/>
+                                <connections>
+                                    <action selector="onCommentWrite:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MAr-wF-x4O"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="M2X-hh-Qlg">
                                 <rect key="frame" x="10" y="488" width="299" height="30"/>
@@ -93,6 +99,9 @@
                                             <constraint firstAttribute="height" constant="30" id="Lg8-9b-Xcx"/>
                                         </constraints>
                                         <state key="normal" title="other..." backgroundImage="btn"/>
+                                        <connections>
+                                            <action selector="onPostDetail:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DQj-iX-Mft"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -125,6 +134,7 @@
             <connections>
                 <outlet property="captionLabel" destination="TRv-Pq-XSU" id="wSI-B8-xdB"/>
                 <outlet property="commentFirstLabel" destination="ySV-uL-lzZ" id="cyI-nO-5r3"/>
+                <outlet property="commentOverview" destination="M2X-hh-Qlg" id="8Bv-Ub-dE2"/>
                 <outlet property="commentWriteButton" destination="ua3-ii-xbR" id="98t-EM-l6J"/>
                 <outlet property="dateLabel" destination="rDf-0o-gkI" id="hYa-Mx-XaS"/>
                 <outlet property="likeButton" destination="mXY-R4-wdD" id="NKz-CT-BFr"/>

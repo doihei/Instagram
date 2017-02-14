@@ -51,26 +51,6 @@ class HomeViewController: CommentBaseViewController {
 
     }
     
-    /// キーボード監視メソッドWillShowアニメート前
-    ///
-    /// - Parameter sender: Notification
-    override func keyboardWillShowExtension(_ sender: Notification) {
-        super.keyboardWillShowExtension(sender)
-        let tabBarController = parent as! ESTabBarController
-        tabBarController.setBarHidden(true, animated: false)
-        self.commentView.isHidden = false
-    }
-    
-    /// キーボード監視メソッドWillHideアニメート前
-    ///
-    /// - Parameter sender: Notification
-    override func keyboardWillHideAnimatedExtension(_ sender: Notification) {
-        super.keyboardWillHideAnimatedExtension(sender)
-        let tabBarController = self.parent as! ESTabBarController
-        tabBarController.setBarHidden(false, animated: false)
-        self.commentView.isHidden = true
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -144,54 +124,24 @@ class HomeViewController: CommentBaseViewController {
         }
     }
     
-    /// イイネボタン押下時
+    /// キーボード監視メソッドWillShowアニメート前
     ///
-    /// - Parameters:
-    ///   - sender: ボタン
-    ///   - event: イベント
-    func onLike(sender: UIButton, event:UIEvent) {
-        print("DEBUG_PRINT: likeボタンがタップされました。")
-        
-        // タップされたセルのインデックスを求める
-        let touch = event.allTouches?.first
-        let point = touch!.location(in: self.tableView)
-        let indexPath = tableView.indexPathForRow(at: point)
-        
-        // 配列からタップされたインデックスのデータを取り出す
-        let postData = postArray[indexPath!.row]
-        
-        // Firebaseに保存するデータの準備
-        if let uid = FIRAuth.auth()?.currentUser?.uid {
-            if postData.isLiked {
-                // すでにいいねをしていた場合はいいねを解除するためIDを取り除く
-                var index = -1
-                for likeId in postData.likes {
-                    if likeId == uid {
-                        // 削除するためにインデックスを保持しておく
-                        index = postData.likes.index(of: likeId)!
-                        break
-                    }
-                }
-                postData.likes.remove(at: index)
-            } else {
-                postData.likes.append(uid)
-            }
-            
-            // 増えたlikesをFirebaseに保存する
-            let postRef = FIRDatabase.database().reference().child(Const.PostPath).child(postData.id!)
-            let likes = ["likes": postData.likes]
-            postRef.updateChildValues(likes)
-            
-        }
+    /// - Parameter sender: Notification
+    override func keyboardWillShowExtension(_ sender: Notification) {
+        super.keyboardWillShowExtension(sender)
+        let tabBarController = parent as! ESTabBarController
+        tabBarController.setBarHidden(true, animated: false)
+        self.commentView.isHidden = false
     }
     
-    /// コメント記入ボタン押下時
+    /// キーボード監視メソッドWillHideアニメート前
     ///
-    /// - Parameters:
-    ///   - sender: ボタン
-    ///   - event: イベント
-    func onCommentWrite(sender: UIButton, event:UIEvent) {
-        let _ = self.commentTextView.becomeFirstResponder()
+    /// - Parameter sender: Notification
+    override func keyboardWillHideAnimatedExtension(_ sender: Notification) {
+        super.keyboardWillHideAnimatedExtension(sender)
+        let tabBarController = self.parent as! ESTabBarController
+        tabBarController.setBarHidden(false, animated: false)
+        self.commentView.isHidden = true
     }
     
     /// コメントボタン押した時に呼ばれる
@@ -228,13 +178,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as? PostTableViewCell else { return UITableViewCell() }
         
         // 投稿セット
-        cell.setPostData(postArray[indexPath.row])
-        
-        // セル内のボタンのアクションをソースコードで設定する
-        cell.likeButton.addTarget(self, action:#selector(onLike(sender:event:)), for:  .touchUpInside)
-        
-        // セル内コメントのボタンのアクション
-        cell.commentWriteButton.addTarget(self, action: #selector(onCommentWrite(sender:event:)), for: .touchUpInside)
+        cell.setPostData(postArray[indexPath.row], indexPath.row)
+        // デリゲートセット
+        cell.delegate = self
         
         return cell
     }
@@ -258,5 +204,53 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // セルをタップされたら何もせずに選択状態を解除する
         tableView.deselectRow(at: indexPath, animated: false)
+    }
+}
+
+// MARK: - PostTableViewCellDelegate
+extension HomeViewController: PostTableViewCellDelegate {
+    
+    /// イイネボタン押下時の処理拡張
+    ///
+    /// - Parameters:
+    ///   - sender: ボタン
+    ///   - row: ROWナンバー
+    func onLikeExtension(_ sender: UIButton, _ row: Int) {
+        
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[row]
+        
+        // Firebaseに保存するデータの準備
+        if let uid = FIRAuth.auth()?.currentUser?.uid {
+            if postData.isLiked {
+                // すでにいいねをしていた場合はいいねを解除するためIDを取り除く
+                var index = -1
+                for likeId in postData.likes {
+                    if likeId == uid {
+                        // 削除するためにインデックスを保持しておく
+                        index = postData.likes.index(of: likeId)!
+                        break
+                    }
+                }
+                postData.likes.remove(at: index)
+            } else {
+                postData.likes.append(uid)
+            }
+            
+            // 増えたlikesをFirebaseに保存する
+            let postRef = FIRDatabase.database().reference().child(Const.PostPath).child(postData.id!)
+            let likes = ["likes": postData.likes]
+            postRef.updateChildValues(likes)
+            
+        }
+    }
+    
+    /// コメントするボタン押下時の処理拡張
+    ///
+    /// - Parameters:
+    ///   - sender: ボタン
+    ///   - row: ROWナンバー
+    func onCommentWriteExtension(_ sender: UIButton, _ row: Int) {
+        let _ = self.commentTextView.becomeFirstResponder()
     }
 }

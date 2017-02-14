@@ -8,6 +8,22 @@
 
 import UIKit
 
+/// 投稿詳細セルタイプ
+///
+/// - detail: 詳細
+/// - comment: コメント
+enum PostDetailCellType: Int {
+    case detail
+    case comment
+    
+    /// タイプ数返却
+    static var count: Int {
+        var i = 0
+        while let _ = PostDetailCellType(rawValue: i) { i += 1 }
+        return i
+    }
+}
+
 /// 投稿詳細画面
 class PostDetailViewController: CommentBaseViewController {
 
@@ -28,26 +44,34 @@ class PostDetailViewController: CommentBaseViewController {
         
         // キーボード制御
         tableView.keyboardDismissMode = .onDrag
+        
+        // 投稿詳細セル
+        let postTableViewCellNib = UINib(nibName: "PostTableViewCell", bundle: nil)
+        tableView.register(postTableViewCellNib, forCellReuseIdentifier: "PostTableViewCell")
+        
+        // コメント一覧セル
+        let commentTableViewCellNib = UINib(nibName: "CommentTableViewCell", bundle: nil)
+        tableView.register(commentTableViewCellNib, forCellReuseIdentifier: "CommentTableViewCell")
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    /// テーブルビューセクションの数
+    ///
+    /// - Parameter tableView: テーブルビュー
+    /// - Returns: セクション数
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return PostDetailCellType.count
+    }
     
     /// テーブルビューセル数
     ///
@@ -56,8 +80,41 @@ extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
     ///   - section: セクション
     /// - Returns: セル数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let _ = self.postData else { return 0 }
-        return 1
+        var rowCnt = 0
+        guard let type = PostDetailCellType(rawValue: section) else { return rowCnt }
+        
+        switch type {
+        case .detail:
+            // 詳細一つのみ
+            rowCnt = 1
+        case .comment:
+            // コメント数
+            if let data = self.postData {
+                rowCnt = data.comments.count
+            }
+        }
+        return rowCnt
+    }
+    
+    /// テーブルビューヘッダータイトル
+    ///
+    /// - Parameters:
+    ///   - tableView: テーブルビュー
+    ///   - section: セクション
+    /// - Returns: タイトル
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var title = ""
+        guard let type = PostDetailCellType(rawValue: section) else { return title }
+        
+        switch type {
+        case .detail:
+            // 詳細一つのみ
+            title = "投稿詳細"
+        case .comment:
+            // コメント数
+            title = "コメント一覧"
+        }
+        return title
     }
     
     /// セルの設定
@@ -68,7 +125,31 @@ extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
     /// - Returns: セル
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        return UITableViewCell()
+        guard let type = PostDetailCellType(rawValue: indexPath.section) else { return UITableViewCell() }
+        guard let data = postData else { return UITableViewCell() }
+        
+        switch type {
+        case .detail:
+            // 詳細一つのみ
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath as IndexPath) as? PostTableViewCell else { return UITableViewCell() }
+            
+            // 投稿セット
+            cell.setPostData(data)
+
+            // コメント概要は不要なので隠す
+            cell.commentOverview.isHidden = true
+            
+            return cell
+            
+        case .comment:
+            // コメント
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath as IndexPath) as? CommentTableViewCell else { return UITableViewCell() }
+            
+            // コメントセット
+            cell.setComment(data.comments[indexPath.row])
+            
+            return cell
+        }
     }
     
     /// セルの高さを動的に変更
@@ -88,5 +169,6 @@ extension PostDetailViewController: UITableViewDelegate, UITableViewDataSource {
     ///   - tableView: テーブルビュー
     ///   - indexPath: インデックスパス
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }
