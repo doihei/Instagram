@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3079AAFD1E52A3F500E6AD29 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3079AAFC1E52A3F500E6AD29 /* Info.plist */; };
 		307A80DE1E484993003C4749 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A80DD1E484993003C4749 /* AppDelegate.swift */; };
 		307A80E51E484993003C4749 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 307A80E41E484993003C4749 /* Assets.xcassets */; };
 		30E044011E4B1B7300A58715 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E044001E4B1B7300A58715 /* libc++.tbd */; };
@@ -59,6 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3079AAFC1E52A3F500E6AD29 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		307A80DA1E484993003C4749 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		307A80DD1E484993003C4749 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		307A80E41E484993003C4749 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -78,7 +80,6 @@
 		30EF96441E529968005933CC /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdobeCreativeSDKImage.framework; path = AdobeSDK/AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
 		30EF96471E529979005933CC /* Adobe-sdk-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Adobe-sdk-Info.plist"; path = "Plist/Adobe-sdk-Info.plist"; sourceTree = "<group>"; };
 		30EF96481E529979005933CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Plist/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		30EF96491E529979005933CC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Plist/Info.plist; sourceTree = "<group>"; };
 		30EF964E1E5299B5005933CC /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Const.swift; path = Const/Const.swift; sourceTree = "<group>"; };
 		30EF96501E5299BE005933CC /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostTableViewCell.swift; path = View/PostTableViewCell.swift; sourceTree = "<group>"; };
 		30EF96511E5299BE005933CC /* PostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PostTableViewCell.xib; path = View/PostTableViewCell.xib; sourceTree = "<group>"; };
@@ -144,6 +145,7 @@
 		307A80DC1E484993003C4749 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
+				3079AAFC1E52A3F500E6AD29 /* Info.plist */,
 				30EF96411E52992F005933CC /* Header */,
 				30EF96401E52991B005933CC /* AdobeSDK */,
 				30EF963F1E52990C005933CC /* Plist */,
@@ -212,7 +214,6 @@
 			children = (
 				30EF96471E529979005933CC /* Adobe-sdk-Info.plist */,
 				30EF96481E529979005933CC /* GoogleService-Info.plist */,
-				30EF96491E529979005933CC /* Info.plist */,
 			);
 			name = Plist;
 			sourceTree = "<group>";
@@ -333,6 +334,7 @@
 				30EF964A1E529979005933CC /* Adobe-sdk-Info.plist in Resources */,
 				307A80E51E484993003C4749 /* Assets.xcassets in Resources */,
 				30EF96531E5299BE005933CC /* PostTableViewCell.xib in Resources */,
+				3079AAFD1E52A3F500E6AD29 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,7 +547,7 @@
 					"$(PROJECT_DIR)/Instagram",
 					"$(PROJECT_DIR)/Instagram/AdobeSDK",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Instagram/Plist/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Instagram/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.daihei.doi.Instagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -567,7 +569,7 @@
 					"$(PROJECT_DIR)/Instagram",
 					"$(PROJECT_DIR)/Instagram/AdobeSDK",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Instagram/Plist/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Instagram/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.daihei.doi.Instagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
