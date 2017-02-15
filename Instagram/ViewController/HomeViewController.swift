@@ -58,54 +58,9 @@ class HomeViewController: CommentBaseViewController {
         tabBarController.setBarHidden(false, animated: false)
         
         if FIRAuth.auth()?.currentUser != nil {
-            // 登録するObserve
-            let entryObserve: [FirebaseObservingEventType] = [.timelineAdded, .timelineChanged]
-            // 要素が追加されたらpostArrayに追加してTableViewを再表示する
-            if !FirebaseObservingUtil.isObservingEvent(types: entryObserve) {
-                let postsRef = FIRDatabase.database().reference().child(Const.PostPath)
-                postsRef.observe(.childAdded, with: { snapshot in
-                    print("DEBUG_PRINT: .childAddedイベントが発生しました。")
-                    
-                    // PostDataクラスを生成して受け取ったデータを設定する
-                    if let uid = FIRAuth.auth()?.currentUser?.uid {
-                        let postData = PostData(snapshot: snapshot, myId: uid)
-                        self.postArray.insert(postData, at: 0)
-                        
-                        // TableViewを再表示する
-                        self.tableView.reloadData()
-                    }
-                })
-                
-                // 要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
-                postsRef.observe(.childChanged, with: { snapshot in
-                    print("DEBUG_PRINT: .childChangedイベントが発生しました。")
-                    
-                    if let uid = FIRAuth.auth()?.currentUser?.uid {
-                        // PostDataクラスを生成して受け取ったデータを設定する
-                        let postData = PostData(snapshot: snapshot, myId: uid)
-                        
-                        // 保持している配列からidが同じものを探す
-                        var index: Int = 0
-                        for post in self.postArray {
-                            if post.id == postData.id {
-                                index = self.postArray.index(of: post)!
-                                break
-                            }
-                        }
-                        
-                        // 差し替えるため一度削除する
-                        self.postArray.remove(at: index)
-                        
-                        // 削除したところに更新済みのでデータを追加する
-                        self.postArray.insert(postData, at: index)
-                        
-                        // TableViewの現在表示されているセルを更新する
-                        self.tableView.reloadData()
-                    }
-                })
-                // 登録完了
-                FirebaseObservingUtil.setCompleteObserveEvent(types: entryObserve)
-            }
+            
+            setFirebaseObserve()
+            
         } else {
             if FirebaseObservingUtil.isEitherObserving() {
                 // ログアウトを検出したら、一旦テーブルをクリアしてオブザーバーを削除する。
@@ -114,6 +69,8 @@ class HomeViewController: CommentBaseViewController {
                 tableView.reloadData()
                 // オブザーバーを削除する
                 FIRDatabase.database().reference().removeAllObservers()
+                // Identifierも全て削除
+                FirebaseObservingUtil.removeAllObserving()
             }
         }
     }
@@ -145,6 +102,63 @@ class HomeViewController: CommentBaseViewController {
     ///   - event: イベント
     override func onComment(sender: UIButton, event: UIEvent) {
         super.onComment(sender: sender, event: event)
+    }
+    
+    /// この画面のobserve設定
+    private func setFirebaseObserve() {
+        // 要素が追加されたらpostArrayに追加してTableViewを再表示する
+        if !FirebaseObservingUtil.isObservingEvent(type: .timelineAdded) {
+            let postsRef = FIRDatabase.database().reference().child(Const.PostPath)
+            FirebaseObservingUtil.setCompleteObserveEvent(type: .timelineAdded,
+                                                          identifier:
+                postsRef.observe(.childAdded, with: { snapshot in
+                    print("DEBUG_PRINT: .childAddedイベントが発生しました。")
+                    
+                    // PostDataクラスを生成して受け取ったデータを設定する
+                    if let uid = FIRAuth.auth()?.currentUser?.uid {
+                        let postData = PostData(snapshot: snapshot, myId: uid)
+                        self.postArray.insert(postData, at: 0)
+                        
+                        // TableViewを再表示する
+                        self.tableView.reloadData()
+                    }
+                })
+            )
+        }
+        
+        if !FirebaseObservingUtil.isObservingEvent(type: .timelineChanged) {
+            let postsRef = FIRDatabase.database().reference().child(Const.PostPath)
+            // 要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
+            FirebaseObservingUtil.setCompleteObserveEvent(type: .timelineChanged,
+                                                          identifier:
+                postsRef.observe(.childChanged, with: { snapshot in
+                    print("DEBUG_PRINT: .childChangedイベントが発生しました。")
+                    
+                    if let uid = FIRAuth.auth()?.currentUser?.uid {
+                        // PostDataクラスを生成して受け取ったデータを設定する
+                        let postData = PostData(snapshot: snapshot, myId: uid)
+                        
+                        // 保持している配列からidが同じものを探す
+                        var index: Int = 0
+                        for post in self.postArray {
+                            if post.id == postData.id {
+                                index = self.postArray.index(of: post)!
+                                break
+                            }
+                        }
+                        
+                        // 差し替えるため一度削除する
+                        self.postArray.remove(at: index)
+                        
+                        // 削除したところに更新済みのでデータを追加する
+                        self.postArray.insert(postData, at: index)
+                        
+                        // TableViewの現在表示されているセルを更新する
+                        self.tableView.reloadData()
+                    }
+                })
+            )
+        }
     }
 }
 

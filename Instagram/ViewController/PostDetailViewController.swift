@@ -39,8 +39,6 @@ class PostDetailViewController: CommentBaseViewController {
     /// テーブルビュー
     @IBOutlet weak var tableView: UITableView!
     
-    private var postDetailObserve: UInt?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -74,10 +72,51 @@ class PostDetailViewController: CommentBaseViewController {
         tabBarController.setBarHidden(true, animated: false)
         
         if FIRAuth.auth()?.currentUser != nil {
-            // こいつはObserve保持しない
-            let postsRef = FIRDatabase.database().reference().child(Const.PostPath)
-            // 要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
-            self.postDetailObserve = postsRef.observe(.childChanged, with: { snapshot in
+            
+            if FirebaseObservingUtil.isObservingEvent(type: .postDetailChanged) {
+                // 設定されていた場合、削除して登録し直し
+                FirebaseObservingUtil.removeObserving(type: .postDetailChanged)
+                setFirebaseObserve()
+            } else {
+                // そのまま登録
+                setFirebaseObserve()
+            }
+        } else {
+            if FirebaseObservingUtil.isEitherObserving() {
+                // ログアウトを検出したら、一旦テーブルをクリアしてオブザーバーを削除する。
+                // テーブルをクリアする
+                self.postData = nil
+                tableView.reloadData()
+                // オブザーバーを削除する
+                FIRDatabase.database().reference().removeAllObservers()
+                // ID保持も初期化
+                FirebaseObservingUtil.removeAllObserving()
+                
+                // FIRDatabaseのobserveEventが上記コードにより解除されたため
+                let _ = self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let identifier = FirebaseObservingUtil.getObservingIdentifier(type: .postDetailChanged) {
+            // 削除
+            FIRDatabase.database().reference().child(Const.PostPath).removeObserver(withHandle: identifier)
+            FirebaseObservingUtil.removeObserving(type: .postDetailChanged)
+        }
+    }
+    
+    /// この画面のobserve設定
+    private func setFirebaseObserve() {
+        // こいつはObserve保持しない
+        let postsRef = FIRDatabase.database().reference().child(Const.PostPath)
+        // 要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
+        // 画面Disapper時消すため保持z
+        FirebaseObservingUtil.setCompleteObserveEvent(type: .postDetailChanged,
+                                                      identifier:
+            postsRef.observe(.childChanged, with: { snapshot in
                 print("DEBUG_PRINT: .childChangedイベントが発生しました。")
                 
                 if let uid = FIRAuth.auth()?.currentUser?.uid {
@@ -93,30 +132,7 @@ class PostDetailViewController: CommentBaseViewController {
                     }
                 }
             })
-            
-        } else {
-            if FirebaseObservingUtil.isEitherObserving() {
-                // ログアウトを検出したら、一旦テーブルをクリアしてオブザーバーを削除する。
-                // テーブルをクリアする
-                self.postData = nil
-                tableView.reloadData()
-                // オブザーバーを削除する
-                FIRDatabase.database().reference().removeAllObservers()
-                
-                // FIRDatabaseのobserveEventが上記コードにより解除されたため
-                let _ = self.navigationController?.popViewController(animated: true)
-            }
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        /// 残ってしまうので
-        if let ui = self.postDetailObserve {
-            /// 削除する
-            FIRDatabase.database().reference().child(Const.PostPath).removeObserver(withHandle: ui)
-        }
+        )
     }
 }
 
