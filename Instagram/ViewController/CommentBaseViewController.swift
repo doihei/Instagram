@@ -8,6 +8,10 @@
 
 import UIKit
 
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+
 import NextGrowingTextView
 
 import ESTabBarController
@@ -37,12 +41,13 @@ protocol CommentBaseProtcol {
     /// - Parameter sender: Notification
     func keyboardWillShowAnimatedExtension(_ sender: Notification)
     
-    /// コメントボタン押した時に呼ばれる
+    
+    /// コメントボタン押下時の処理拡張
     ///
     /// - Parameters:
     ///   - sender: ボタン
-    ///   - event: イベント
-    func onComment(sender: UIButton, event:UIEvent)
+    ///   - postData: 投稿データ
+    func onCommentExtension(sender: UIButton, postData: PostData, comment: String)
 }
 
 
@@ -60,6 +65,9 @@ class CommentBaseViewController: UIViewController, CommentBaseProtcol {
     
     /// コメント下部のAutoLayout
     @IBOutlet weak var commentViewBottom: NSLayoutConstraint!
+    
+    /// コメントする該当投稿データ
+    var postData: PostData? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,7 +147,45 @@ class CommentBaseViewController: UIViewController, CommentBaseProtcol {
     /// - Parameters:
     ///   - sender: ボタン
     ///   - event: イベント
-    func onComment(sender: UIButton, event:UIEvent){}
+    func onComment(sender: UIButton, event:UIEvent){
+        
+        guard let data = self.postData else { return }
+        guard let commentText = self.commentTextView.text, !commentText.isEmpty else { return }
+        
+        // Firebaseに保存するデータの準備
+        if let uid = FIRAuth.auth()?.currentUser?.uid, let name = FIRAuth.auth()?.currentUser?.displayName {
+            // 時間
+            let time = Date.timeIntervalSinceReferenceDate
+        
+            // コメントに追加
+            data.comments.append(Comment(id: uid, name: name, comment: commentText, date: Date(timeIntervalSinceReferenceDate: time)))
+            
+            // 辞書型配列にして返す
+            var comments: [[String:String]] = []
+            for comment in data.comments {
+                comments.append(comment.toDictionary())
+            }
+            
+            // 増えたコメントをFirebaseに保存する
+            let postRef = FIRDatabase.database().reference().child(Const.PostPath).child(data.id!)
+            let commentsDict = ["comments": comments]
+            postRef.updateChildValues(commentsDict)
+            
+            // 空に戻して、キーボードを下げる
+            commentTextView.text = ""
+            self.view.endEditing(true)
+        }
+        
+        // 処理拡張へ
+        onCommentExtension(sender: sender, postData: data, comment: commentText)
+    }
+    
+    /// コメントボタン押下時の処理拡張
+    ///
+    /// - Parameters:
+    ///   - sender: ボタン
+    ///   - postData: 投稿データ
+    func onCommentExtension(sender: UIButton, postData: PostData, comment: String) {}
     
     deinit {
         NotificationCenter.default.removeObserver(self)

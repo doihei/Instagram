@@ -8,9 +8,27 @@
 
 import UIKit
 
+/// Firebase系
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+
+/// 投稿テーブルビューセルデリゲート
+@objc protocol PostTableViewCellDelegate {
+    @objc optional func onLikeExtension(_ sender: UIButton, _
+        row: Int)
+    @objc optional func onCommentWriteExtension(_ sender: UIButton, _ row: Int)
+    @objc optional func onPostDetailExtension(_ sender: UIButton, _ row: Int)
+}
+
 /// 投稿タイムラインCell
 class PostTableViewCell: UITableViewCell {
 
+    var delegate: PostTableViewCellDelegate?
+    
+    /// 保持Row
+    private var row = 0
+    
     /// 投稿画像
     @IBOutlet weak var postImageView: UIImageView!
     
@@ -35,6 +53,9 @@ class PostTableViewCell: UITableViewCell {
     /// コメントボタン
     @IBOutlet weak var commentWriteButton: UIButton!
     
+    /// コメント概要View
+    @IBOutlet weak var commentOverview: UIStackView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -49,7 +70,10 @@ class PostTableViewCell: UITableViewCell {
     /// 投稿データをCellにセット
     ///
     /// - Parameter postData: 投稿データ
-    func setPostData(_ postData: PostData) {
+    func setPostData(_ postData: PostData, _ row: Int = 0) {
+        
+        self.row = row
+        
         self.postImageView.image = postData.image
         
         self.captionLabel.text = "\(postData.name!) : \(postData.caption!)"
@@ -60,7 +84,7 @@ class PostTableViewCell: UITableViewCell {
         formatter.locale = NSLocale(localeIdentifier: "ja_JP") as Locale!
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         
-        let dateString:String = formatter.string(from: postData.date! as Date)
+        let dateString:String = formatter.string(from: postData.date!)
         self.dateLabel.text = dateString
         
         if postData.isLiked {
@@ -71,6 +95,38 @@ class PostTableViewCell: UITableViewCell {
             self.likeButton.setImage(buttonImage, for: .normal)
         }
         
-        
+        otherCommentButton.setTitle("\(postData.comments.count)件", for: .normal)
+        if let comment = postData.comments.last {
+            commentFirstLabel.text = "\(comment.name!)\n\(comment.comment!)"
+        } else {
+            commentFirstLabel.text = ""
+        }
+    }
+    
+    /// イイネボタン押下時処理
+    ///
+    /// - Parameter sender: ボタン
+    @IBAction func onLike(_ sender: UIButton) {
+        if let delegate = self.delegate {
+            delegate.onLikeExtension?(sender, self.row)
+        }
+    }
+    
+    /// コメントするボタン押下時処理
+    ///
+    /// - Parameter sender: ボタン
+    @IBAction func onCommentWrite(_ sender: UIButton) {
+        if let delegate = self.delegate {
+            delegate.onCommentWriteExtension?(sender, self.row)
+        }
+    }
+    
+    /// otherボタン押下時処理
+    ///
+    /// - Parameter sender: ボタン
+    @IBAction func onPostDetail(_ sender: UIButton) {
+        if let delegate = self.delegate {
+            delegate.onPostDetailExtension?(sender, self.row)
+        }
     }
 }

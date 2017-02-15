@@ -12,14 +12,14 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 
-/// 投稿データ
+/// 投稿データモデル
 class PostData: NSObject {
     var id: String?
     var image: UIImage?
     var imageString: String?
     var name: String?
     var caption: String?
-    var date: NSDate?
+    var date: Date?
     var likes: [String] = []
     var comments: [Comment] = []
     var isLiked: Bool = false
@@ -37,7 +37,7 @@ class PostData: NSObject {
         self.caption = valueDictionary["caption"] as? String
         
         let time = valueDictionary["time"] as? String
-        self.date = NSDate(timeIntervalSinceReferenceDate: TimeInterval(time!)!)
+        self.date = Date(timeIntervalSinceReferenceDate: TimeInterval(time!)!)
         
         if let likes = valueDictionary["likes"] as? [String] {
             self.likes = likes
@@ -47,33 +47,19 @@ class PostData: NSObject {
         if let comments = valueDictionary["comments"] as? [[String: AnyObject]] {
             for comment in comments {
                 guard let commentId = comment["id"] as? String else { continue }
+                guard let commentName = comment["name"] as? String else { continue }
                 guard let commentText = comment["comment"] as? String else { continue }
                 guard let commentDate = comment["date"] as? String else { continue }
                 
-                self.comments.append(Comment(id: commentId, comment: commentText, date: NSDate(timeIntervalSinceReferenceDate: TimeInterval(commentDate)!)))
+                self.comments.append(Comment(id: commentId, name: commentName, comment: commentText, date: Date(timeIntervalSinceReferenceDate: TimeInterval(commentDate)!)))
             }
+            
+            // 日付順ソート
+            self.comments.sort{ $0.date!.compare($1.date!) == .orderedAscending }
         }
         
-        for likeId in self.likes {
-            if likeId == myId {
-                self.isLiked = true
-                break
-            }
+        if let _ = self.likes.index(of: myId) {
+            self.isLiked = true
         }
-    }
-}
-
-/// コメントクラス
-class Comment: NSObject {
-    
-    var id: String?
-    var comment: String?
-    var date: NSDate?
-    
-    init(id: String, comment: String, date: NSDate) {
-        
-        self.id = id
-        self.comment = comment
-        self.date = date
     }
 }

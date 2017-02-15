@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300A054B1E52DA4E00A0DC57 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A054A1E52DA4E00A0DC57 /* CommentTableViewCell.swift */; };
+		300A054D1E52DA6700A0DC57 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300A054C1E52DA6700A0DC57 /* CommentTableViewCell.xib */; };
+		300A054F1E52DBCF00A0DC57 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A054E1E52DBCF00A0DC57 /* Comment.swift */; };
+		300A05511E53012300A0DC57 /* FirebaseObservingEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A05501E53012300A0DC57 /* FirebaseObservingEventType.swift */; };
 		307A80DE1E484993003C4749 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A80DD1E484993003C4749 /* AppDelegate.swift */; };
 		307A80E51E484993003C4749 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 307A80E41E484993003C4749 /* Assets.xcassets */; };
 		30E044011E4B1B7300A58715 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E044001E4B1B7300A58715 /* libc++.tbd */; };
@@ -59,6 +63,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		300A054A1E52DA4E00A0DC57 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentTableViewCell.swift; path = View/CommentTableViewCell.swift; sourceTree = "<group>"; };
+		300A054C1E52DA6700A0DC57 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
+		300A054E1E52DBCF00A0DC57 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comment.swift; path = Model/Comment.swift; sourceTree = "<group>"; };
+		300A05501E53012300A0DC57 /* FirebaseObservingEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseObservingEventType.swift; sourceTree = "<group>"; };
 		3079AAFC1E52A3F500E6AD29 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		307A80DA1E484993003C4749 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		307A80DD1E484993003C4749 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -178,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				30EF96541E5299CB005933CC /* PostData.swift */,
+				300A054E1E52DBCF00A0DC57 /* Comment.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -187,6 +196,8 @@
 			children = (
 				30EF96501E5299BE005933CC /* PostTableViewCell.swift */,
 				30EF96511E5299BE005933CC /* PostTableViewCell.xib */,
+				300A054A1E52DA4E00A0DC57 /* CommentTableViewCell.swift */,
+				300A054C1E52DA6700A0DC57 /* CommentTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -195,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				30EF964E1E5299B5005933CC /* Const.swift */,
+				300A05501E53012300A0DC57 /* FirebaseObservingEventType.swift */,
 			);
 			name = Const;
 			sourceTree = "<group>";
@@ -331,6 +343,7 @@
 				30EF96711E529BC9005933CC /* Main.storyboard in Resources */,
 				30EF964B1E529979005933CC /* GoogleService-Info.plist in Resources */,
 				30EF964A1E529979005933CC /* Adobe-sdk-Info.plist in Resources */,
+				300A054D1E52DA6700A0DC57 /* CommentTableViewCell.xib in Resources */,
 				307A80E51E484993003C4749 /* Assets.xcassets in Resources */,
 				30EF96531E5299BE005933CC /* PostTableViewCell.xib in Resources */,
 			);
@@ -404,14 +417,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				300A05511E53012300A0DC57 /* FirebaseObservingEventType.swift in Sources */,
 				30EF96631E5299E2005933CC /* PostViewController.swift in Sources */,
 				30EF96621E5299E2005933CC /* PostDetailViewController.swift in Sources */,
 				30EF96601E5299E2005933CC /* ImageSelectViewController.swift in Sources */,
+				300A054F1E52DBCF00A0DC57 /* Comment.swift in Sources */,
 				30EF96551E5299CB005933CC /* PostData.swift in Sources */,
 				307A80DE1E484993003C4749 /* AppDelegate.swift in Sources */,
 				30EF965F1E5299E2005933CC /* HomeViewController.swift in Sources */,
 				30EF96651E5299E2005933CC /* ViewController.swift in Sources */,
 				30EF96521E5299BE005933CC /* PostTableViewCell.swift in Sources */,
+				300A054B1E52DA4E00A0DC57 /* CommentTableViewCell.swift in Sources */,
 				30EF96611E5299E2005933CC /* LoginViewController.swift in Sources */,
 				30EF96641E5299E2005933CC /* SettingViewController.swift in Sources */,
 				30EF96571E5299D6005933CC /* CommentBaseViewController.swift in Sources */,
