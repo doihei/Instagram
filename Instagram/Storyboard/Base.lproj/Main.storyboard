@@ -403,7 +403,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zMV-7J-Uvy">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <sections/>
                                 <connections>
@@ -456,7 +456,7 @@
                             <constraint firstItem="lJ5-tc-ypx" firstAttribute="top" secondItem="HXU-iv-Vy0" secondAttribute="bottom" id="jaL-kn-jMo"/>
                             <constraint firstAttribute="trailing" secondItem="zMV-7J-Uvy" secondAttribute="trailing" id="kQ3-ji-qpt"/>
                             <constraint firstItem="zMV-7J-Uvy" firstAttribute="top" secondItem="fGr-Bd-it6" secondAttribute="top" id="m4Z-vR-Eqe"/>
-                            <constraint firstItem="lJ5-tc-ypx" firstAttribute="top" secondItem="zMV-7J-Uvy" secondAttribute="bottom" id="pWu-Ey-eCl"/>
+                            <constraint firstItem="lJ5-tc-ypx" firstAttribute="top" secondItem="zMV-7J-Uvy" secondAttribute="bottom" constant="44" id="pWu-Ey-eCl"/>
                         </constraints>
                     </view>
                     <connections>

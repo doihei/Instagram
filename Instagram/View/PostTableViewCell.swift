@@ -84,7 +84,7 @@ class PostTableViewCell: UITableViewCell {
         formatter.locale = NSLocale(localeIdentifier: "ja_JP") as Locale!
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         
-        let dateString:String = formatter.string(from: postData.date! as Date)
+        let dateString:String = formatter.string(from: postData.date!)
         self.dateLabel.text = dateString
         
         if postData.isLiked {
@@ -93,6 +93,13 @@ class PostTableViewCell: UITableViewCell {
         } else {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
+        }
+        
+        otherCommentButton.setTitle("\(postData.comments.count)件", for: .normal)
+        if let comment = postData.comments.last {
+            commentFirstLabel.text = "\(comment.name!)\n\(comment.comment!)"
+        } else {
+            commentFirstLabel.text = ""
         }
     }
     

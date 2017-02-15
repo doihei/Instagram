@@ -33,9 +33,6 @@ private enum PostDetailCellType: Int {
 /// 投稿詳細画面
 class PostDetailViewController: CommentBaseViewController {
 
-    /// 該当投稿データ
-    var postData: PostData?
-    
     /// テーブルビュー
     @IBOutlet weak var tableView: UITableView!
     

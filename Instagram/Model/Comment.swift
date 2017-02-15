@@ -23,4 +23,11 @@ class Comment: NSObject {
         self.comment = comment
         self.date = date
     }
+    
+    /// 辞書型にして返す
+    ///
+    /// - Returns: [String:String]
+    func toDictionary() -> [String:String] {
+        return ["id": self.id!, "name": self.name!, "comment": self.comment!, "date": String(self.date!.timeIntervalSinceReferenceDate)]
+    }
 }

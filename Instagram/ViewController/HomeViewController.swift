@@ -13,8 +13,6 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-import NextGrowingTextView
-
 import ESTabBarController
 
 /// タイムライン画面
@@ -93,15 +91,6 @@ class HomeViewController: CommentBaseViewController {
         let tabBarController = parent?.parent as! ESTabBarController
         tabBarController.setBarHidden(false, animated: false)
         self.commentView.isHidden = true
-    }
-    
-    /// コメントボタン押した時に呼ばれる
-    ///
-    /// - Parameters:
-    ///   - sender: ボタン
-    ///   - event: イベント
-    override func onComment(sender: UIButton, event: UIEvent) {
-        super.onComment(sender: sender, event: event)
     }
     
     /// この画面のobserve設定
@@ -254,6 +243,7 @@ extension HomeViewController: PostTableViewCellDelegate {
     ///   - row: ROWナンバー
     func onCommentWriteExtension(_ sender: UIButton, _ row: Int) {
         let _ = self.commentTextView.becomeFirstResponder()
+        self.postData = self.postArray[row]
     }
     
     /// 投稿詳細ボタン押下時の拡張処理

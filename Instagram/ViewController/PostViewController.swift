@@ -48,7 +48,7 @@ class PostViewController: UIViewController {
         let imageString = imageData!.base64EncodedString(options: .lineLength64Characters)
         
         // postDataに必要な情報を取得しておく
-        let time = NSDate.timeIntervalSinceReferenceDate
+        let time = Date.timeIntervalSinceReferenceDate
         let name = FIRAuth.auth()?.currentUser?.displayName
         
         // 辞書を作成してFirebaseに保存する

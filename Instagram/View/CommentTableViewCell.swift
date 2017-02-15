@@ -8,6 +8,8 @@
 
 import UIKit
 
+import FirebaseAuth
+
 class CommentTableViewCell: UITableViewCell {
 
     /// コメントしたユーザー名
@@ -35,6 +37,10 @@ class CommentTableViewCell: UITableViewCell {
     /// - Parameter comment: コメント
     func setComment(_ comment: Comment) {
         
+        if comment.id == FIRAuth.auth()?.currentUser?.uid {
+            self.backgroundColor = UIColor.cyan
+        }
+        
         self.commentNameLabel.text = comment.name
         
         self.commentLabel.text = comment.comment
@@ -43,7 +49,7 @@ class CommentTableViewCell: UITableViewCell {
         formatter.locale = NSLocale(localeIdentifier: "ja_JP") as Locale!
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         
-        let dateString:String = formatter.string(from: comment.date! as Date)
+        let dateString:String = formatter.string(from: comment.date!)
         self.commentDateLabel.text = dateString
     }
 }
