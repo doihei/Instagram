@@ -38,6 +38,7 @@ class CommentTableViewCell: UITableViewCell {
     func setComment(_ comment: Comment) {
         
         if comment.id == FIRAuth.auth()?.currentUser?.uid {
+            // コメントユーザーが自分だった時のために背景でも変えとくか
             self.backgroundColor = UIColor.cyan
         }
         
