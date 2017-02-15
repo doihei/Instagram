@@ -58,7 +58,7 @@ class HomeViewController: CommentBaseViewController {
         tabBarController.setBarHidden(false, animated: false)
         
         if FIRAuth.auth()?.currentUser != nil {
-            
+            // Firebase登録
             setFirebaseObserve()
             
         } else {

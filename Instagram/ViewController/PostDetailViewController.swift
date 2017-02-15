@@ -75,8 +75,11 @@ class PostDetailViewController: CommentBaseViewController {
             
             if FirebaseObservingUtil.isObservingEvent(type: .postDetailChanged) {
                 // 設定されていた場合、削除して登録し直し
-                FirebaseObservingUtil.removeObserving(type: .postDetailChanged)
-                setFirebaseObserve()
+                if let identifier = FirebaseObservingUtil.getObservingIdentifier(type: .postDetailChanged) {
+                    FIRDatabase.database().reference().child(Const.PostPath).removeObserver(withHandle: identifier)
+                    FirebaseObservingUtil.removeObserving(type: .postDetailChanged)
+                    setFirebaseObserve()
+                }
             } else {
                 // そのまま登録
                 setFirebaseObserve()
@@ -113,7 +116,6 @@ class PostDetailViewController: CommentBaseViewController {
         // こいつはObserve保持しない
         let postsRef = FIRDatabase.database().reference().child(Const.PostPath)
         // 要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
-        // 画面Disapper時消すため保持z
         FirebaseObservingUtil.setCompleteObserveEvent(type: .postDetailChanged,
                                                       identifier:
             postsRef.observe(.childChanged, with: { snapshot in
