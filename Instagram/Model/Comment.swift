@@ -14,9 +14,9 @@ class Comment: NSObject {
     var id: String?
     var name: String?
     var comment: String?
-    var date: NSDate?
+    var date: Date?
     
-    init(id: String, name: String, comment: String, date: NSDate) {
+    init(id: String, name: String, comment: String, date: Date) {
         
         self.id = id
         self.name = name

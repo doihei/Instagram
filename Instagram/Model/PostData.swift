@@ -19,7 +19,7 @@ class PostData: NSObject {
     var imageString: String?
     var name: String?
     var caption: String?
-    var date: NSDate?
+    var date: Date?
     var likes: [String] = []
     var comments: [Comment] = []
     var isLiked: Bool = false
@@ -37,7 +37,7 @@ class PostData: NSObject {
         self.caption = valueDictionary["caption"] as? String
         
         let time = valueDictionary["time"] as? String
-        self.date = NSDate(timeIntervalSinceReferenceDate: TimeInterval(time!)!)
+        self.date = Date(timeIntervalSinceReferenceDate: TimeInterval(time!)!)
         
         if let likes = valueDictionary["likes"] as? [String] {
             self.likes = likes
@@ -51,8 +51,11 @@ class PostData: NSObject {
                 guard let commentText = comment["comment"] as? String else { continue }
                 guard let commentDate = comment["date"] as? String else { continue }
                 
-                self.comments.append(Comment(id: commentId, name: commentName, comment: commentText, date: NSDate(timeIntervalSinceReferenceDate: TimeInterval(commentDate)!)))
+                self.comments.append(Comment(id: commentId, name: commentName, comment: commentText, date: Date(timeIntervalSinceReferenceDate: TimeInterval(commentDate)!)))
             }
+            
+            // 日付順ソート
+            self.comments.sort{ $0.date!.compare($1.date!) == .orderedAscending }
         }
         
         if let _ = self.likes.index(of: myId) {
