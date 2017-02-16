@@ -98,8 +98,10 @@ class PostTableViewCell: UITableViewCell {
         otherCommentButton.setTitle("\(postData.comments.count)件", for: .normal)
         if let comment = postData.comments.last {
             commentFirstLabel.text = "\(comment.name!)\n\(comment.comment!)"
+            commentFirstLabel.textColor = UIColor.black
         } else {
-            commentFirstLabel.text = ""
+            commentFirstLabel.text = "コメントなし"
+            commentFirstLabel.textColor = UIColor.lightGray
         }
     }
     
