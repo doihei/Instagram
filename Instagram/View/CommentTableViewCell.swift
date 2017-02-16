@@ -47,7 +47,7 @@ class CommentTableViewCell: UITableViewCell {
         self.commentLabel.text = comment.comment
         
         let formatter = DateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "ja_JP") as Locale!
+        formatter.locale = Locale(identifier: "ja_JP")
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         
         let dateString:String = formatter.string(from: comment.date!)

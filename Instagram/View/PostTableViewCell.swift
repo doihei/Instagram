@@ -81,7 +81,7 @@ class PostTableViewCell: UITableViewCell {
         likeLabel.text = "\(likeNumber)"
         
         let formatter = DateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "ja_JP") as Locale!
+        formatter.locale = Locale(identifier: "ja_JP")
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         
         let dateString:String = formatter.string(from: postData.date!)
