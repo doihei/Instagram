@@ -67,9 +67,11 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    /// 投稿データをCellにセット
+    /// セルに投稿データを設定する
     ///
-    /// - Parameter postData: 投稿データ
+    /// - Parameters:
+    ///   - postData: 投稿データ
+    ///   - row: row
     func setPostData(_ postData: PostData, _ row: Int = 0) {
         
         self.row = row

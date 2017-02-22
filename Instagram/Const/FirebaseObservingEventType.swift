@@ -72,9 +72,11 @@ class FirebaseObservingUtil {
         return FirebaseObservingManager.shared.observingIdentifier[type.rawValue]
     }
     
-    /// Observe登録完了設定
+    /// 該当Identifierを設定完了とする
     ///
-    /// - Parameter type: FirebaseObservingEventType
+    /// - Parameters:
+    ///   - type: FirebaseObservingEventType
+    ///   - identifier: 識別子
     static func setCompleteObserveEvent(type: FirebaseObservingEventType, identifier: UInt) {
         NSLog("observingIdentifier: \(FirebaseObservingManager.shared.observingIdentifier)")
         FirebaseObservingManager.shared.observingIdentifier[type.rawValue] = identifier
@@ -89,8 +91,6 @@ class FirebaseObservingUtil {
     }
     
     /// 全て削除
-    ///
-    /// - Parameter type: FirebaseObservingEventType
     static func removeAllObserving() {
         NSLog("observingIdentifier: \(FirebaseObservingManager.shared.observingIdentifier)")
         FirebaseObservingManager.shared.observingIdentifier = [UInt?](repeating: nil, count: FirebaseObservingEventType.count)
