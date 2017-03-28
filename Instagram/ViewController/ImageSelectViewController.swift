@@ -27,10 +27,10 @@ class ImageSelectViewController: UIViewController {
     @IBAction func onLibrary(_ sender: UIButton) {
         
         // ライブラリ（カメラロール）を指定してピッカーを開く
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let pickerController = UIImagePickerController()
             pickerController.delegate = self
-            pickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            pickerController.sourceType = .photoLibrary
             self.present(pickerController, animated: true, completion: nil)
         }
     }
@@ -40,10 +40,10 @@ class ImageSelectViewController: UIViewController {
     /// - Parameter sender: ボタン
     @IBAction func onCamera(_ sender: UIButton) {
         // カメラを指定してピッカーを開く
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let pickerController = UIImagePickerController()
             pickerController.delegate = self
-            pickerController.sourceType = UIImagePickerControllerSourceType.camera
+            pickerController.sourceType = .camera
             self.present(pickerController, animated: true, completion: nil)
         }
     }

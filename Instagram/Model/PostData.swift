@@ -12,11 +12,21 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 
+
+/// 投稿データタイプ
+///
+/// - image: 画像
+/// - movie: 動画
+enum PostType: Int {
+    case image, movie
+}
+
 /// 投稿データモデル
 class PostData: NSObject {
     var id: String?
-    var image: UIImage?
-    var imageString: String?
+    var data: UIImage?
+    var dataString: String?
+    var postType: PostType?
     var name: String?
     var caption: String?
     var date: Date?
@@ -29,8 +39,10 @@ class PostData: NSObject {
         
         let valueDictionary = snapshot.value as! [String: AnyObject]
         
-        self.imageString = valueDictionary["image"] as? String
-        self.image = UIImage(data: NSData(base64Encoded: imageString!, options: .ignoreUnknownCharacters)! as Data)
+        self.postType = PostType(rawValue: valueDictionary["post_type"] as! Int)
+        
+        self.dataString = valueDictionary["data"] as? String
+        self.data = UIImage(data: NSData(base64Encoded: dataString!, options: .ignoreUnknownCharacters)! as Data)
         
         self.name = valueDictionary["name"] as? String
         
