@@ -111,7 +111,7 @@ class LoginViewController: UIViewController {
                     if let error = error {
                         NSLog("DEBUG_PRINT: " + error.localizedDescription)
                     }
-                    NSLog("DEBUG_PRINT: [displayName = \(currentUser.displayName)]の設定に成功しました。")
+                    NSLog("DEBUG_PRINT: [displayName = \(String(describing: currentUser.displayName))]の設定に成功しました。")
                     
                     
                     // 画面を閉じてViewControllerに戻る

@@ -19,19 +19,23 @@ import SVProgressHUD
 /// 投稿画面
 class PostViewController: UIViewController {
 
-    /// 画像
-    var image: UIImage!
+    /// データ
+    var dataString: String!
+    
+    /// 投稿タイプ
+    var postType: PostType!
     
     /// 画像ビュー
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var postPreviewView: PostPreviewView!
     
     /// TF
     @IBOutlet weak var textField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        imageView.image = image
+        
+        // 投稿プレビュー
+        self.postPreviewView.preview(dataString: dataString, postType)
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,17 +47,13 @@ class PostViewController: UIViewController {
     /// - Parameter sender: ボタン
     @IBAction func onPost(_ sender: UIButton) {
         
-        // ImageViewから画像を取得する
-        let imageData = UIImageJPEGRepresentation(imageView.image!, 0.5)
-        let imageString = imageData!.base64EncodedString(options: .lineLength64Characters)
-        
         // postDataに必要な情報を取得しておく
         let time = Date.timeIntervalSinceReferenceDate
         let name = FIRAuth.auth()?.currentUser?.displayName
         
         // 辞書を作成してFirebaseに保存する
         let postRef = FIRDatabase.database().reference().child(Const.PostPath)
-        let postData = ["caption": textField.text!, "data": imageString, "time": String(time), "name": name!, "post_type": String(PostType.image.rawValue)]
+        let postData = ["caption": textField.text!, "data": postPreviewView.dataString!, "time": String(time), "name": name!, "post_type": String(PostType.image.rawValue)]
         postRef.childByAutoId().setValue(postData)
         
         // HUDで投稿完了を表示する

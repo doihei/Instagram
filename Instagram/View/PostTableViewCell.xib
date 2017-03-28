@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,18 +17,19 @@
             <rect key="frame" x="0.0" y="0.0" width="335" height="535"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="335" height="534"/>
+                <rect key="frame" x="0.0" y="0.0" width="335" height="535"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RCt-pT-248">
                         <rect key="frame" x="8" y="8" width="319" height="518"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kBn-lK-4Iz">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5rY-gZ-cPs" customClass="PostPreviewView" customModule="Instagram" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="319" height="319"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="kBn-lK-4Iz" secondAttribute="height" multiplier="1:1" id="xGm-dy-o8v"/>
+                                    <constraint firstAttribute="width" secondItem="5rY-gZ-cPs" secondAttribute="height" multiplier="1:1" id="0FJ-v8-Rlv"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PSl-sQ-gNx">
                                 <rect key="frame" x="10" y="329" width="299" height="40"/>
                                 <subviews>
@@ -116,13 +117,13 @@
                             <constraint firstItem="ua3-ii-xbR" firstAttribute="leading" secondItem="RCt-pT-248" secondAttribute="leading" constant="10" id="6BH-rL-fe8"/>
                             <constraint firstItem="M2X-hh-Qlg" firstAttribute="leading" secondItem="RCt-pT-248" secondAttribute="leading" constant="10" id="7O6-sa-56C"/>
                             <constraint firstAttribute="trailing" secondItem="TRv-Pq-XSU" secondAttribute="trailing" constant="10" id="8c7-Ko-BsI"/>
-                            <constraint firstItem="kBn-lK-4Iz" firstAttribute="leading" secondItem="RCt-pT-248" secondAttribute="leading" id="Byv-Sw-9Gs"/>
+                            <constraint firstItem="5rY-gZ-cPs" firstAttribute="top" secondItem="RCt-pT-248" secondAttribute="top" id="FFy-Q8-Fow"/>
                             <constraint firstItem="PSl-sQ-gNx" firstAttribute="leading" secondItem="RCt-pT-248" secondAttribute="leading" constant="10" id="Gh5-rr-ALD"/>
                             <constraint firstItem="TRv-Pq-XSU" firstAttribute="leading" secondItem="RCt-pT-248" secondAttribute="leading" constant="10" id="XhW-Kt-Oum"/>
-                            <constraint firstAttribute="trailing" secondItem="kBn-lK-4Iz" secondAttribute="trailing" id="ald-RL-CCA"/>
+                            <constraint firstItem="5rY-gZ-cPs" firstAttribute="leading" secondItem="RCt-pT-248" secondAttribute="leading" id="eEK-SD-LN5"/>
                             <constraint firstAttribute="trailing" secondItem="PSl-sQ-gNx" secondAttribute="trailing" constant="10" id="gTC-cy-Rfn"/>
-                            <constraint firstItem="kBn-lK-4Iz" firstAttribute="top" secondItem="RCt-pT-248" secondAttribute="top" id="hIp-6a-Tw0"/>
                             <constraint firstAttribute="trailing" secondItem="ua3-ii-xbR" secondAttribute="trailing" constant="10" id="mpk-h4-A8E"/>
+                            <constraint firstAttribute="trailing" secondItem="5rY-gZ-cPs" secondAttribute="trailing" id="o4r-E8-DOj"/>
                             <constraint firstAttribute="trailing" secondItem="M2X-hh-Qlg" secondAttribute="trailing" constant="10" id="qGr-MN-olB"/>
                         </constraints>
                     </stackView>
@@ -143,7 +144,7 @@
                 <outlet property="likeButton" destination="mXY-R4-wdD" id="NKz-CT-BFr"/>
                 <outlet property="likeLabel" destination="MJv-I5-aLa" id="Si1-7e-Jcg"/>
                 <outlet property="otherCommentButton" destination="uqW-Df-Abs" id="2Dj-L2-JX5"/>
-                <outlet property="postImageView" destination="kBn-lK-4Iz" id="yOB-uS-fMq"/>
+                <outlet property="postPreviewView" destination="5rY-gZ-cPs" id="IWW-HR-q0B"/>
             </connections>
             <point key="canvasLocation" x="67.5" y="299.5"/>
         </tableViewCell>

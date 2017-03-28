@@ -107,13 +107,14 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="4j6-c5-psM">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="175"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kov-qs-qfd">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2X-nd-6FS" customClass="PostPreviewView" customModule="Instagram" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="175" id="ntB-Z2-YiY"/>
-                                                    <constraint firstAttribute="height" constant="175" id="vbe-Q4-Aik"/>
+                                                    <constraint firstAttribute="height" constant="175" id="0Mz-Sd-yYi"/>
+                                                    <constraint firstAttribute="width" constant="175" id="q7X-8N-Js8"/>
                                                 </constraints>
-                                            </imageView>
+                                            </view>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="キャプション" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guc-jM-JKC">
                                                 <rect key="frame" x="205" y="145" width="138" height="30"/>
                                                 <nil key="textColor"/>
@@ -122,8 +123,8 @@
                                             </textField>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="kov-qs-qfd" firstAttribute="top" secondItem="4j6-c5-psM" secondAttribute="top" id="AMF-Vj-nyK"/>
-                                            <constraint firstItem="kov-qs-qfd" firstAttribute="leading" secondItem="4j6-c5-psM" secondAttribute="leading" id="t89-Ff-XZZ"/>
+                                            <constraint firstItem="f2X-nd-6FS" firstAttribute="top" secondItem="4j6-c5-psM" secondAttribute="top" id="hMd-r7-4ww"/>
+                                            <constraint firstItem="f2X-nd-6FS" firstAttribute="leading" secondItem="4j6-c5-psM" secondAttribute="leading" id="z0b-s8-Y35"/>
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rRC-tb-1hT">
@@ -165,7 +166,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="kov-qs-qfd" id="ag4-mK-Ctp"/>
+                        <outlet property="postPreviewView" destination="f2X-nd-6FS" id="efz-HW-8G6"/>
                         <outlet property="textField" destination="guc-jM-JKC" id="DpA-nM-eZg"/>
                     </connections>
                 </viewController>

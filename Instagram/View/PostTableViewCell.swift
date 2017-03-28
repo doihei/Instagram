@@ -29,8 +29,8 @@ class PostTableViewCell: UITableViewCell {
     /// 保持Row
     private var row = 0
     
-    /// 投稿画像
-    @IBOutlet weak var postImageView: UIImageView!
+    /// 投稿プレビュー
+    @IBOutlet weak var postPreviewView: PostPreviewView!
     
     /// いいねボタン
     @IBOutlet weak var likeButton: UIButton!
@@ -76,7 +76,7 @@ class PostTableViewCell: UITableViewCell {
         
         self.row = row
         
-        self.postImageView.image = postData.data
+        self.postPreviewView.preview(dataString: postData.dataString!, postData.postType!)
         
         self.captionLabel.text = "\(postData.name!) : \(postData.caption!)"
         let likeNumber = postData.likes.count

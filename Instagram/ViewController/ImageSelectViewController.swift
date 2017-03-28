@@ -129,7 +129,10 @@ extension ImageSelectViewController: AdobeUXImageEditorViewControllerDelegate {
         
         // 投稿の画面を開く
         let postViewController = self.storyboard?.instantiateViewController(withIdentifier: "Post") as! PostViewController
-        postViewController.image = image
+        let imageData = UIImageJPEGRepresentation(image!, 0.5)
+        let imageString = imageData!.base64EncodedString(options: .lineLength64Characters)
+        postViewController.dataString = imageString
+        postViewController.postType = .image
         present(postViewController, animated: true, completion: nil)
     }
     

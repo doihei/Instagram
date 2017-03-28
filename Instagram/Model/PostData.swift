@@ -24,7 +24,6 @@ enum PostType: Int {
 /// 投稿データモデル
 class PostData: NSObject {
     var id: String?
-    var data: UIImage?
     var dataString: String?
     var postType: PostType?
     var name: String?
@@ -39,10 +38,9 @@ class PostData: NSObject {
         
         let valueDictionary = snapshot.value as! [String: AnyObject]
         
-        self.postType = PostType(rawValue: valueDictionary["post_type"] as! Int)
+        self.postType = PostType(rawValue: Int(valueDictionary["post_type"] as! String)!)
         
         self.dataString = valueDictionary["data"] as? String
-        self.data = UIImage(data: NSData(base64Encoded: dataString!, options: .ignoreUnknownCharacters)! as Data)
         
         self.name = valueDictionary["name"] as? String
         
