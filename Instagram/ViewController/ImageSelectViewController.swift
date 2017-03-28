@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 /// 画像選択画面
 class ImageSelectViewController: UIViewController {
@@ -31,11 +32,12 @@ class ImageSelectViewController: UIViewController {
             let pickerController = UIImagePickerController()
             pickerController.delegate = self
             pickerController.sourceType = .photoLibrary
+            pickerController.mediaTypes = [kUTTypeMovie as String, kUTTypeImage as String]
             self.present(pickerController, animated: true, completion: nil)
         }
     }
     
-    /// カメラボタン押下時処理
+    /// 画像撮影ボタン押下時処理
     ///
     /// - Parameter sender: ボタン
     @IBAction func onCamera(_ sender: UIButton) {
@@ -44,6 +46,23 @@ class ImageSelectViewController: UIViewController {
             let pickerController = UIImagePickerController()
             pickerController.delegate = self
             pickerController.sourceType = .camera
+            pickerController.mediaTypes = [kUTTypeImage as String]
+            pickerController.cameraCaptureMode = .photo
+            self.present(pickerController, animated: true, completion: nil)
+        }
+    }
+    
+    /// 動画撮影ボタン押下時処理
+    ///
+    /// - Parameter sender: ボタン
+    @IBAction func onVideoCamera(_ sender: UIButton) {
+        // カメラを指定してピッカーを開く
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let pickerController = UIImagePickerController()
+            pickerController.delegate = self
+            pickerController.sourceType = .camera
+            pickerController.mediaTypes = [kUTTypeMovie as String]
+            pickerController.cameraCaptureMode = .video
             self.present(pickerController, animated: true, completion: nil)
         }
     }

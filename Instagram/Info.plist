@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>本アプリは、画像の投稿及び編集のため、マイクへのアクセスを求めます。</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -21,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>本アプリは、画像の投稿及び編集のため、カメラロールへのアクセスを求めます。</string>
+	<string>本アプリは、画像の投稿及び編集のため、カメラへのアクセスを求めます。</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>本アプリは、画像の投稿及び編集のため、フォトライブラリーへのアクセスを求めます。</string>
 	<key>UILaunchStoryboardName</key>

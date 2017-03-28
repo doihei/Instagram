@@ -76,7 +76,7 @@ class PostTableViewCell: UITableViewCell {
         
         self.row = row
         
-        self.postImageView.image = postData.image
+        self.postImageView.image = postData.data
         
         self.captionLabel.text = "\(postData.name!) : \(postData.caption!)"
         let likeNumber = postData.likes.count
