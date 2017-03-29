@@ -18,6 +18,12 @@ class PostPreviewView: UIView {
     /// データ
     var dataString: String?
     
+    /// 動画レイヤー
+    var avPlayerLayer: AVPlayerLayer?
+    
+    /// 画像
+    var imageView: UIImageView?
+    
     /// プレビュー開始
     ///
     /// - Parameters:
@@ -33,21 +39,29 @@ class PostPreviewView: UIView {
             switch postType {
             case .image:
                 // 画像の貼り付け
-                let imageView = UIImageView(image: UIImage(data: Data(base64Encoded: data, options: .ignoreUnknownCharacters)!))
-                imageView.frame = self.bounds
-                self.addSubview(imageView)
+                if self.imageView == nil {
+                    self.imageView = UIImageView(image: UIImage(data: Data(base64Encoded: data, options: .ignoreUnknownCharacters)!))
+                    self.imageView!.frame = self.bounds
+                    self.addSubview(self.imageView!)
+                }
             case .movie:
-                // 動画の貼り付け
-                let url = URL(string: data.removingPercentEncoding!)!
-                let avPlayer = AVPlayer(url: url)
                 
-                // Layerを生成.設定
-                let avPlayerLayer = AVPlayerLayer(player: avPlayer)
-                avPlayerLayer.frame = self.bounds
-                self.layer.addSublayer(avPlayerLayer)
-                
-                // 再生
-                avPlayer.play()
+                if self.avPlayerLayer == nil {
+                    // 動画の貼り付け
+                    let url = URL(string: data.removingPercentEncoding!)!
+                    let avPlayer = AVPlayer(url: url)
+                    
+                    // Layerを生成.設定
+                    self.avPlayerLayer = AVPlayerLayer(player: avPlayer)
+                    self.avPlayerLayer!.frame = self.bounds
+                    self.layer.addSublayer(avPlayerLayer!)
+                    
+                    
+                    // 再生
+                    avPlayerLayer?.player?.play()
+                } else {
+                    avPlayerLayer?.player?.seek(to: CMTimeMake(0, Int32(NSEC_PER_SEC)))
+                }
             }
         }
     }
