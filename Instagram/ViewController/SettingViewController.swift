@@ -58,7 +58,7 @@ class SettingViewController: UIViewController {
                 if let error = error {
                     print("DEBUG_PRINT: " + error.localizedDescription)
                 }
-                print("DEBUG_PRINT: [displayName = \(user.displayName)]の設定に成功しました。")
+                print("DEBUG_PRINT: [displayName = \(String(describing: user.displayName))]の設定に成功しました。")
                 
                 // HUDで完了を知らせる
                 SVProgressHUD.showSuccess(withStatus: "表示名を変更しました")

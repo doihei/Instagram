@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 class PostPreviewView: UIView {
 
@@ -32,13 +34,20 @@ class PostPreviewView: UIView {
             case .image:
                 // 画像の貼り付け
                 let imageView = UIImageView(image: UIImage(data: Data(base64Encoded: data, options: .ignoreUnknownCharacters)!))
-                imageView.frame = CGRect(x: self.frame.minX, y: self.frame.minY, width: self.frame.width, height: self.frame.height)
+                imageView.frame = self.bounds
                 self.addSubview(imageView)
             case .movie:
                 // 動画の貼り付け
-                break
-            default:
-                break
+                let url = URL(string: data.removingPercentEncoding!)!
+                let avPlayer = AVPlayer(url: url)
+                
+                // Layerを生成.設定
+                let avPlayerLayer = AVPlayerLayer(player: avPlayer)
+                avPlayerLayer.frame = self.bounds
+                self.layer.addSublayer(avPlayerLayer)
+                
+                // 再生
+                avPlayer.play()
             }
         }
     }

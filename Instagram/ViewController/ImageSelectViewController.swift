@@ -87,10 +87,9 @@ extension ImageSelectViewController: UIImagePickerControllerDelegate, UINavigati
     ///   - picker: ピッカー
     ///   - info: 情報体
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if info[UIImagePickerControllerOriginalImage] != nil {
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             // 撮影/選択された画像を取得する
-            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-            
             // AdobeUXImageEditorで、受け取ったimageを加工できる
             // ここでpresentViewControllerを呼び出しても表示されないためメソッドが終了してから呼ばれるようにする
             DispatchQueue.main.async {
@@ -100,6 +99,14 @@ extension ImageSelectViewController: UIImagePickerControllerDelegate, UINavigati
                 self.present(adobeViewController, animated: true, completion:  nil)
             }
             
+        } else if let movieUrl = info[UIImagePickerControllerMediaURL] as? URL {
+            // 撮影/選択された動画を取得
+            DispatchQueue.main.async {
+                let postViewController = self.storyboard?.instantiateViewController(withIdentifier: "Post") as! PostViewController
+                postViewController.dataString = movieUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                postViewController.postType = .movie
+                self.present(postViewController, animated: true, completion: nil)
+            }
         }
         
         // 閉じる
